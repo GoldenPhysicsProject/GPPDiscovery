@@ -30,7 +30,9 @@ jobs:
       - run: pip install -r requirements.txt
       - run: python efit.py --c ${{ matrix.c }} --N ${{ matrix.N }} --T 300 --dps 60
       - uses: actions/upload-artifact@v4
-        with: {name: E-c${{ matrix.c }}, path: result.json}
+        with:
+          name: E-c${{ matrix.c }}
+          path: result.json
   collect:
     needs: point
     if: always()

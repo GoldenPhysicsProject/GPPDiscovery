@@ -14,10 +14,10 @@ with open("results.jsonl", "w") as f:
 G1 = 14.1347251417346937
 out = []
 out.append("# Truncated Weil ground-state scan\n")
-out.append("## N-convergence (fixed c=13, the far end)\n")
+out.append("## N-convergence (fixed c=19, the far end)\n")
 out.append("| N | dim | lambda_1 | lambda_2 | gap | log10(g) | odd-in-gap | sec |")
 out.append("|---|-----|----------|----------|-----|----------|------------|-----|")
-for r in [r for r in rows if r["c"] == 13]:
+for r in [r for r in rows if r["c"] == 19]:
     out.append(f"| {r['N']} | {r['dim']} | `{r['lam1']}` | `{r['lam2']}` | `{r['gap']}` "
                f"| {r['gap_log10']:.4f} | {r['odd_inside_gap']} | {r['seconds']} |")
 

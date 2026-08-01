@@ -14,18 +14,21 @@ jobs:
       max-parallel: 20
       matrix:
         include:
-          # N-convergence at the FAR end: is the slope curvature real, or is
-          # N=36 under-resolving the longer interval at large c?
-          - {c: 13, N: 36}
-          - {c: 13, N: 44}
-          - {c: 13, N: 52}
+          # N-convergence at the FAR END (c=19, interval 2*log19=5.89, the
+          # worst-resolved point in the scan). N=36 was verified converged at
+          # c=7 only, where the interval is 3.89. If lambda_1 is still moving
+          # at N=52 here, the entire apparent curvature in the c-scan is a
+          # resolution artifact and no decay law can be read off yet.
+          - {c: 19, N: 36}
+          - {c: 19, N: 44}
+          - {c: 19, N: 52}
           # gap measurement across the c-scan
           - {c: 3,  N: 36}
           - {c: 5,  N: 36}
           - {c: 7,  N: 36}
           - {c: 11, N: 36}
+          - {c: 13, N: 36}
           - {c: 17, N: 36}
-          - {c: 19, N: 36}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

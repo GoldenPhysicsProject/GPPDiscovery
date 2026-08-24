@@ -1,9 +1,10 @@
-# weil-decay — Claude operating instructions
+# GPPDiscovery — Claude operating instructions
 
-This repo is the standing discovery workbench for numeric exploration on the truncated
-Weil quadratic form (see README.md for the actual mathematical question). This file holds
-the *process* rule that was missing before 2026-08-24: how work here relates to git state,
-so nothing gets orphaned again.
+This repo (formerly `weil-decay`, renamed 2026-08-24 to reflect its actual scope) is the
+standing discovery workbench for numeric/exploratory research across the Golden Physics
+Project's shadow framework — see README.md for the framework in brief and the current
+active threads. This file holds the *process* rule that was missing before 2026-08-24:
+how work here relates to git state, so nothing gets orphaned again.
 
 ## The branch-hygiene rule (why this file exists)
 

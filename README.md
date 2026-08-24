@@ -47,6 +47,14 @@ truncated at T=100); the reference implementation reports the same at c=23, 29
 and attributes it to exactly that. The scan re-runs c=3 at N=36, T=300 to
 settle it. If it survives, that is a much bigger deal than the slope.
 
+The much smaller negative value previously recorded at `c=29, N=28, T=300,
+dps=60` has now been resolved: it was a working-precision artifact. At 90--150
+digits the value is stably positive, approximately `1.59354525025e-62`, with a
+120-digit residual of `1.64e-121` and successful high-precision Cholesky.
+However, the N and T sweeps are still unconverged, so this is not a certified
+positivity result and does not rescue a c-slope fit. See
+[`discovery/weil_decay/C29_PRECISION_AUDIT.md`](discovery/weil_decay/C29_PRECISION_AUDIT.md).
+
 ## Status
 
 Discovery only. Nothing here is proved. Anything that becomes a theorem goes to

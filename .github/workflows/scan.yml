@@ -1,4 +1,4 @@
-name: weil-decay-scan
+name: prime-decay-scan
 on:
   workflow_dispatch:
   push:

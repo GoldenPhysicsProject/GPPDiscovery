@@ -60,3 +60,22 @@ This is the precise sense in which the Euler product is a noninteracting bosonic
 - analytic completion + functional equation: candidate interacting/renormalized continuation beyond the naive thermodynamic domain.
 
 The last two lines are interpretations. All formulas above them are exact standard consequences of the Dirichlet series and canonical Gibbs calculus for beta>1.
+
+## Hankel/Gram positivity check (supports `formalization_queue` item `22070a50`)
+
+The higher-moment hierarchy `m_r(sigma) = (-1)^r F^(r)(sigma)` where
+`F(sigma) = -zeta'/zeta(1+sigma) = U(1+sigma)` (mean arithmetic energy above) is
+structurally a moment/Gram matrix: for any real vector `c_0..c_N`,
+
+`sum_{i,j} c_i c_j m_{i+j}(sigma) = sum_n Lambda(n) n^{-(1+sigma)} (sum_i c_i (log n)^i)^2 >= 0`,
+
+so the Hankel matrix `(m_{i+j})_{0<=i,j<=N}` is positive semidefinite for every
+`sigma > 0`, strictly positive definite in practice since the polynomial vanishes on at
+most finitely many `log n` values. `discovery/number_thermodynamics/hankel_check.py`
+numerically confirms this: truncating the von Mangoldt sum at `n_max=200000` and testing
+`sigma in {2.0, 1.0, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01}`, every leading principal minor of
+the `7x7` Hankel matrix (`N=6`) is strictly positive at every tested `sigma`, including
+deep into the `sigma -> 0+` regime where convergence is slowest. This is a numeric sanity
+check ahead of the Lean formalization, not a substitute for it -- the actual proof route
+is the sum-of-squares argument above, not determinant expansion (which is numerically
+unstable and combinatorially blows up for larger `N`).

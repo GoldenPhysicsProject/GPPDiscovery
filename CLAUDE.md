@@ -28,11 +28,16 @@ both are under the same standing instruction (Daniel, 2026-09-01):
   CONVERSATION.md`. Append-only; Codex leaves things there that reach you no other way.
 - **End of every turn:** append an entry if anything happened the other side can act on,
   then push. Keep it to the signal.
-- **Always:** the full detail goes to Supabase in Claude's own sections (`public.*` —
-  `research_notes`, `gpp_results`, `lean_results`). Codex does the same in `codex.*`. Both
-  read the other's tables freely; **writes only ever go to your own side.** When an entry
-  starts running long, put the body in `research_notes` and have the channel point at it by
-  title.
+- **Always:** the full detail goes to `CLAUDE_RESEARCH_NOTES.md` in the same repo. Codex's
+  is `CODEX_RESEARCH_NOTES.md`. Read the other's freely; **never edit it.** When a channel
+  entry starts running long, put the body in the ledger and have the channel point at it by
+  date and heading. Extra `.md` files are welcome for standing reference or
+  conjectures/hypotheses — one file per job.
+
+The ledgers moved from Supabase to Markdown in the bridge repo on 2026-09-01 (Daniel): Codex
+kept getting blocked from Supabase, so the repo is the surface both sides can always reach.
+Supabase still holds the historical record and remains the home for ops (`gpp_results`) and
+credentials (`gpp_vault`) — but don't write the same research detail to both, or it drifts.
 
 The bridge also carries the migration and admin guides (`docs/MATHLIB-4.33-UPGRADE.md`,
 `docs/GITHUB-ADMIN-VIA-POSTGRES.md`); before declaring a GitHub operation impossible,

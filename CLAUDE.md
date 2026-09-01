@@ -14,10 +14,10 @@ to mirror the other's layout.
 
 That cuts both ways:
 - Read `GPPDiscovery2` freely (standing permission, any session) and port anything useful.
-  Attribute a port honestly — say so in the commit and in the Supabase record.
+  Attribute a port honestly — say so in the commit and in `CLAUDE_RESEARCH_NOTES.md`.
 - **Never push to `GPPDiscovery2`.** A `codex/discovery-workbench` branch also exists here
-  on GPPDiscovery; leave it alone too. Writes only ever go to Claude's own side —
-  Claude's repos and branches, and `public.*` Supabase tables, never `codex.*`.
+  on GPPDiscovery; leave it alone too. Writes only ever go to Claude's own side — Claude's
+  repos and branches, and the `CLAUDE_*.md` ledgers. Never edit `CODEX_*.md`.
 
 ## Every turn: read the channel first, write to it last
 
@@ -70,9 +70,9 @@ duplicating the write-up.
    suggestive" — an actual provable statement), it gets formalized in
    `GoldenPhysicsProject/GPPVerify` (see `gpp-bridge/rules/GPPVERIFY.md` for the Lean-side rules:
    no `sorry`, no axiom asserting an open claim, small PRs, CI-green before merge,
-   `lean_tasks`/`lean_results`/`formalization_queue` in Supabase).
+   the seven CI gates green before merge).
 3. Do this same-session where possible: discover here, prove there, merge there, record in
-   Supabase, come back here for the next question. Don't let a promising numeric result
+   `CLAUDE_RESEARCH_NOTES.md`, come back here for the next question. Don't let a promising numeric result
    wait multiple sessions to become a Lean PR — that gap is exactly how stray branches
    happen.
 4. **Nothing in this repo is proved.** A result here is evidence, never a theorem. Say so
@@ -101,7 +101,7 @@ On 2026-08-24 an audit of GPPVerify turned up 14 stray branches, some months old
 with real proved content that had simply never been merged or looked at again — pure loss,
 not because the math was wrong but because no session closed the loop. Two were rescued
 (PR #122); most were dead. By 2026-09-01 another 22 had accumulated; all were verified
-merged-or-dead, their heads recorded in `public.research_notes` (restorable with
+merged-or-dead, their heads recorded in `CLAUDE_RESEARCH_NOTES.md` (restorable with
 `git push origin <sha>:refs/heads/<branch>`), and deleted. That cleanup should not need a
 third round.
 
@@ -119,11 +119,17 @@ failure mode — close every loop you open, same session if at all possible.
 
 ## Session protocol
 
-Record to Supabase (project `dunrgpupddbmzffntwph`) before the session ends: `gpp_results`
-for project/ops work, `public.research_notes` for discovery findings and infrastructure
-decisions, `lean_results`/`formalization_queue` for the Lean side. A failed gate or a
-refuted conjecture is a result — write it up honestly rather than logging nothing. Never
-write a success row for unverified work.
+Before the session ends, write to the bridge: findings and infrastructure decisions to
+`CLAUDE_RESEARCH_NOTES.md`, a refuted route to `CLAUDE_CORRECTIONS.md` (with a *how to catch
+this shape next time* line — that is the part worth more than the retraction), and anything
+Codex can act on to `CONVERSATION.md`. Move a goal in `CLAUDE_RESEARCH_GOALS.md` when it
+lands or dies, so nothing dead sits there looking live.
+
+A failed gate or a refuted conjecture **is** a result — write it up honestly rather than
+logging nothing. Never write a success row for unverified work.
+
+Supabase still holds the historical record and remains the home for ops (`gpp_results`) and
+credentials (`gpp_vault`), but don't write the same research detail to both.
 
 ## Standing pointer
 

@@ -55,7 +55,7 @@ Three repos, three jobs. Getting this wrong is how work becomes invisible:
 
 The second row is a real convention, not an accident: `GPPVerify/discovery/` currently
 holds `cutkosky_weil/`, `local_field_shadow/` and `shadow_ope/`, and
-`website/GPPVERIFY.md` points sessions at `discovery/cutkosky_weil/notes.md` before they
+`gpp-bridge/rules/GPPVERIFY.md` points sessions at `discovery/cutkosky_weil/notes.md` before they
 extend that thread. Don't migrate those here — the pointer would break and the notes would
 sit further from the Lean files they explain. Do keep this table honest: if a thread here
 grows a Lean counterpart, note the cross-reference in both directions rather than
@@ -68,7 +68,7 @@ duplicating the write-up.
    threads under `discovery/<thread>/`).
 2. The moment a result is solid enough to state as a real theorem (not "the numerics are
    suggestive" — an actual provable statement), it gets formalized in
-   `GoldenPhysicsProject/GPPVerify` (see `website/GPPVERIFY.md` for the Lean-side rules:
+   `GoldenPhysicsProject/GPPVerify` (see `gpp-bridge/rules/GPPVERIFY.md` for the Lean-side rules:
    no `sorry`, no axiom asserting an open claim, small PRs, CI-green before merge,
    `lean_tasks`/`lean_results`/`formalization_queue` in Supabase).
 3. Do this same-session where possible: discover here, prove there, merge there, record in
@@ -90,7 +90,7 @@ are the exception, not the default; if you make one, close it the same session.
 **On GPPVerify: PR-only, and Claude's standing branch is `claude/workbench`.** Codex's is
 `codex/lean-workbench` — never push there, never delete it. Cut short-lived
 `claude/<thread>` branches off `claude/workbench` when a thread needs its own PR, and
-delete them on merge. Full topology table in `website/GPPVERIFY.md`.
+delete them on merge. Full topology table in `gpp-bridge/rules/GPPVERIFY.md`.
 
 **Ref deletion does not work through the git proxy** (`git push origin :refs/heads/…`
 returns HTTP 403). Use the bridge's `DELETE /git/refs/heads/<branch, / as %2F>` route.
@@ -127,6 +127,9 @@ write a success row for unverified work.
 
 ## Standing pointer
 
-Owner, credentials (Supabase `gpp_vault` — never in this file or in source), and the
-Codex division of labor: see `website/CLAUDE.md`. Lean-side rules: `website/GPPVERIFY.md`.
-This repo doesn't duplicate them.
+All standing rules moved to `GoldenPhysicsProject/GPP-bridge` on 2026-09-01, so Claude and
+Codex read one copy instead of two that drift. Owner, credentials (Supabase `gpp_vault` —
+never in this file or in source) and the division of labour: `rules/PROJECT.md`. Lean-side
+rules: `rules/GPPVERIFY.md`. Dead routes: `CLAUDE_CORRECTIONS.md` — check it before starting
+an RH-positivity thread. Goals: `CLAUDE_RESEARCH_GOALS.md`. This repo doesn't duplicate any
+of them.

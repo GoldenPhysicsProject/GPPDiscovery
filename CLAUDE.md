@@ -19,12 +19,22 @@ That cuts both ways:
   on GPPDiscovery; leave it alone too. Writes only ever go to Claude's own side —
   Claude's repos and branches, and `public.*` Supabase tables, never `codex.*`.
 
-## First, every turn: the Claude↔Codex channel
+## Every turn: read the channel first, write to it last
 
-`GoldenPhysicsProject/GPP-bridge` is the coordination repo between the two workers. Read
-`CONVERSATION.md` there **at the start of every turn** — it is append-only, and Codex
-leaves messages in it that will not reach you any other way. The bridge also carries the
-migration and admin guides (`docs/MATHLIB-4.33-UPGRADE.md`,
+`GoldenPhysicsProject/GPP-bridge` is the coordination repo between the two workers, and
+both are under the same standing instruction (Daniel, 2026-09-01):
+
+- **Start of every turn:** `cd /home/user/gpp-bridge && git pull -q origin main && tail -80
+  CONVERSATION.md`. Append-only; Codex leaves things there that reach you no other way.
+- **End of every turn:** append an entry if anything happened the other side can act on,
+  then push. Keep it to the signal.
+- **Always:** the full detail goes to Supabase in Claude's own sections (`public.*` —
+  `research_notes`, `gpp_results`, `lean_results`). Codex does the same in `codex.*`. Both
+  read the other's tables freely; **writes only ever go to your own side.** When an entry
+  starts running long, put the body in `research_notes` and have the channel point at it by
+  title.
+
+The bridge also carries the migration and admin guides (`docs/MATHLIB-4.33-UPGRADE.md`,
 `docs/GITHUB-ADMIN-VIA-POSTGRES.md`); before declaring a GitHub operation impossible,
 check whether the bridge's Postgres→GitHub API route already does it.
 

@@ -195,3 +195,74 @@ python3 shape.py       # spectrum ratios and separate decay rates
 python3 point.py    --c 6 --N 36 --T 379 --dps 90   # the decisive composite cutoff
 python3 spectrum.py --c 7 --N 28 --T 420 --dps 90 --keep 10
 ```
+
+
+---
+
+# The mechanism: levels are born at the bulk and descend
+
+`c = 6.5`, run at matched margin 4.48, settles the rung count and in doing so gives the
+whole picture. **`floor(c) - 1` is also wrong.**
+
+The even sector shows 6 rungs and the odd 5, against `floor(6.5) - 1 = 5`. The disagreement
+is the result: the sixth even level sits at `-1.12`, only 0.98 decades above the bulk, where
+at every integer `c` the lowest rung stands 2.1-2.7 decades clear. It is a level **in
+transit**, and a fixed threshold catches it in one sector and not the other.
+
+Rungs do not appear at integers. They emerge continuously.
+
+| c | lvl1 | lvl2 | lvl3 | lvl4 | lvl5 | lvl6 | bulk |
+|---|------|------|------|------|------|------|------|
+| 6.0 | -22.14 | -15.88 | -10.63 | -6.12 | -2.40 | -- | -0.30 |
+| 6.5 | -24.65 | -18.35 | -12.83 | -8.08 | -4.05 | **-1.12** | -0.14 |
+| 7.0 | -27.01 | -20.59 | -14.93 | -10.11 | -5.74 | **-2.42** | -0.28 |
+
+A level detaches from the bulk between `c=6` and `c=6.5`, sits at `-1.12` halfway, and by
+`c=7` has reached `-2.42` -- exactly where `c=6`'s newest rung was. **One level born per unit
+`c`.** Meanwhile every existing level descends:
+
+| level | descent per unit c, in ln |
+|-------|--------------------------|
+| 1 (the ground state) | **-11.20** |
+| 2 | -10.84 |
+| 3 | -9.91 |
+| 4 | -9.19 |
+| 5 | -7.67 |
+
+**This closes the circle.** `K = 11.20` measured as the descent rate of the bottom level is
+the same `K = 11.4` measured from `lambda_min(c)` across five cutoffs. `lambda_min` is simply
+the oldest rung -- born around `c ~ 2` and falling at a constant rate since -- so
+
+```
+ln lambda_min(c)  ~  -K (c - 2) + const.
+```
+
+The exponential law, the rung count growing by one per unit `c`, and the `floor(c)-1`
+coincidence at integer `c` are one phenomenon seen three ways. None of it is arithmetic:
+levels are born at a rate of one per unit cutoff and descend at a fixed rate, whether or not
+a prime power is crossed.
+
+## Sampling bias, recorded once rather than six times
+
+Six claims were made and retracted in this session:
+
+1. the sub-threshold magnitude tracks the archimedean margin -- refuted by a third point at
+   the same margin;
+2. the varying archimedean error tilts the slope -- it is 0.08% of the signal;
+3. the rigid `lambda_1`/gap ratio is structure -- it is an under-resolution artifact;
+4. the decay is a product over prime powers, `exp(-K psi)` -- refuted by `c=6`;
+5. one ladder rung per prime power -- refuted by `c=7`;
+6. `floor(c) - 1` rungs -- refuted by `c=6.5`.
+
+These are not six independent mistakes. **Every one chose the more arithmetic of two
+explanations that the sample could not separate**, and in each case the sample could not
+separate them because it was drawn from a set on which the candidates are collinear: primes
+only (1, 4, 5), integers only (6), or points already disqualified for another reason (3).
+
+The operational rule that would have caught all six:
+
+> Before claiming variable `X` explains `Y`, list what else is collinear with `X` **on the
+> points you actually have**, and find the cheapest point that breaks the collinearity. If
+> no such point exists yet, the claim is not available.
+
+Every one of the six was killed by a single run costing 10-40 minutes.

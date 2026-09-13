@@ -136,6 +136,6 @@ credentials (`gpp_vault`), but don't write the same research detail to both.
 All standing rules moved to `GoldenPhysicsProject/GPP-bridge` on 2026-09-01, so Claude and
 Codex read one copy instead of two that drift. Owner, credentials (Supabase `gpp_vault` —
 never in this file or in source) and the division of labour: `rules/PROJECT.md`. Lean-side
-rules: `rules/GPPVERIFY.md`. Dead routes: `CLAUDE_CORRECTIONS.md` — check it before starting
+rules: `rules/GPPVERIFY.md`. How to think here (which hunches to trust, the collinearity rule, standing biases): `CLAUDE_HEURISTICS.md`. Dead routes: `CLAUDE_CORRECTIONS.md` — check it before starting
 an RH-positivity thread. Goals: `CLAUDE_RESEARCH_GOALS.md`. This repo doesn't duplicate any
 of them.

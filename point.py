@@ -1,6 +1,17 @@
 #!/usr/bin/env python3
 """One (c, N, T, dps) point of the truncated-Weil scan.
 
+Every record now carries its own numerical-validity flag. `connes_cvs` puts the
+archimedean kink for basis index x at spectral height 2*pi*x/log(c), and
+truncates the integral at |tau| <= T, so the outermost mode is only represented
+while 2*pi*N/log(c) <= T. `margin = T*log(c)/(2*pi*N)` is that ratio; below 1
+the top modes lose their archimedean contribution and lambda_1 goes negative.
+See resolution.py. Do not read a point with margin < 1 as a measurement.
+
+There is a second, independent requirement that this script does NOT check,
+because it constrains N alone: the basis must resolve the prime-power comb,
+N >= log(c)/min_gap(c) - 1/2. See spacing.py.
+
 Emits lambda_1, lambda_2 and the SPECTRAL GAP, not just the ground state.
 
 WHY THE GAP MATTERS
@@ -17,9 +28,11 @@ Parity: the CvS operator commutes with k -> -k. The candidate ground state is
 even, so the relevant gap is the EVEN-sector gap. We also report the odd sector
 so we can see whether an odd eigenvalue falls inside it.
 """
-import argparse, json, platform, time
+import argparse, json, math, platform, time
 import mpmath as mp
 import connes_cvs as cc
+import resolution
+import spacing
 
 
 def sector_spectrum(Q, parity):
@@ -59,6 +72,7 @@ l1, l2 = ev_e[0], ev_e[1]
 gap = l2 - l1
 l10 = lambda x: float(mp.log(abs(x), 10)) if x != 0 else None
 
+n_req = spacing.n_required(a.c)
 rec = dict(
     c=a.c, N=a.N, T=a.T, dps=a.dps, dim=2 * a.N + 1, a=float(mp.log(a.c)),
     lam1=mp.nstr(l1, 25), lam2=mp.nstr(l2, 25), gap=mp.nstr(gap, 25),
@@ -67,6 +81,12 @@ rec = dict(
     odd1_log10=l10(ev_o[0]),
     sign1=int(mp.sign(l1)),
     odd_inside_gap=bool(l1 < ev_o[0] < l2),
+    tau_max=resolution.tau_max(a.c, a.N),
+    margin=resolution.margin(a.c, a.N, a.T),
+    within_window=resolution.within_window(a.c, a.N, a.T),
+    n_required=n_req,
+    headroom=a.N / n_req,
+    resolves_primes=bool(a.N >= n_req),
     seconds=round(time.time() - t0, 1),
     python=platform.python_version(), mpmath=mp.__version__,
     connes_cvs=getattr(cc, "__version__", "?"),

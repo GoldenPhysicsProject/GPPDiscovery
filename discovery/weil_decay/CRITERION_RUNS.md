@@ -88,3 +88,82 @@ natural log. They do not agree with each other, and neither matches `-2*gamma_1 
 `-4*gamma_1 = -56.55`. The README's "two-point slope of about -64" comes from `c=5` and `c=7`,
 which is the one pair that survives -- so that number is the honest state of the art, and it
 is a single two-point estimate with no curvature information behind it.
+
+
+---
+
+## Margin convergence: how much margin do you actually need?
+
+Run after the rest of the table, `c=3`, `N=36` (dim 73), `dps=90`, varying only `T`.
+
+| T | margin | lambda_1 | change | rate %/unit margin |
+|---|--------|----------|--------|--------------------|
+| 210 | 1.020 | `4.656080582364100789220654e-8` | - | - |
+| 240 | 1.166 | `4.777124319083887855688378e-8` | +2.60% | 17.8 |
+| 300 | 1.457 | `4.950881954831601328856756e-8` | +3.64% | 12.5 |
+| 420 | 2.040 | `5.172931002671856388792397e-8` | +4.49% | 7.7 |
+| 618 | 3.002 | `5.364015...e-8` | +3.69% | 3.8 |
+| 900 | 4.371 | `5.495900...e-8` | +2.46% | 1.8 |
+
+The rate halves cleanly, so `lambda_1 = L - A*exp(-k*margin)` fits. Least squares on
+`log(L - lambda)`:
+
+| points used | L | k |
+|-------------|---|---|
+| all six (margins 1.02 - 4.37) | **5.564e-8** | 0.761 |
+| last four (margins 1.46 - 4.37) | **5.577e-8** | 0.697 |
+
+Stable across subsets. **The converged value at `c=3` is about `5.57e-8`; the published
+`4.951e-8` is 12.5% low.**
+
+### Design rule
+
+Relative archimedean error is approximately `0.31 * exp(-0.70 * margin)`:
+
+| target error | margin needed |
+|--------------|---------------|
+| 10% | 1.6 |
+| 4% | 3 |
+| **1%** | **4** |
+| 0.1% | 7 |
+
+So `kappa = 3` -- the value suggested in `ARCHIMEDEAN_TRUNCATION_CRITERION.md` before this
+series was run -- buys about 4%, not the sub-percent that a careful measurement wants. Use
+`kappa = 4` for percent-level work and `kappa = 7` if the value itself matters.
+
+### Correction: this does NOT matter for the slope
+
+An earlier reading in this session claimed the varying archimedean error "tilts the thing
+being measured." That was asserted before it was computed, and it is wrong. Applying
+`0.31*exp(-0.70*margin)` at each point of the published `N=36, T=300` scan:
+
+| c | margin | implied error |
+|---|--------|---------------|
+| 3 | 1.457 | 11.2% |
+| 5 | 2.135 | 7.0% |
+| 7 | 2.581 | 5.1% |
+| 11 | 3.180 | 3.4% |
+| 13 | 3.402 | 2.9% |
+| 17 | 3.758 | 2.3% |
+| 19 | 3.905 | 2.0% |
+
+Monotone in `c` and all one sign, so it does contribute a spurious trend -- of
+**-0.051 in natural log**, against measured slopes of `-44` to `-93`. That is **0.08% of
+the signal**. The error varies by a factor of 5 across a range where `lambda_1` itself varies
+by 55 orders of magnitude, so it cannot matter.
+
+**Fix it because it is free, not because it changes a conclusion.**
+
+### What that leaves
+
+Of the three problems with the published c-scan, exactly one is fatal:
+
+1. **`c=17` and `c=19` are unresolved in the prime comb.** `c=19` is wrong by seventeen
+   orders of magnitude. Unusable, and not fixable by adjusting `T`.
+2. Archimedean error: 2-12% on every value, 0.08% on the slope. Cosmetic for the slope.
+3. **The three well-resolved points (`c = 3, 5, 7`) give slopes `-43.93` and `-68.72`, which
+   disagree with each other.**
+
+(3) is the honest headline and it survives everything else. The data does not determine a
+decay constant, and the reason is not numerical error -- it is that there are three usable
+values of `c`.

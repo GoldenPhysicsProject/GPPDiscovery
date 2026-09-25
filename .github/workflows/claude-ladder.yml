@@ -1,0 +1,37 @@
+name: claude-ladder
+# Claude (chat seat): 1D -> 2D ladder (radial delay split, Hecke spin-J zeros, Picard S-matrix).
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  part:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        part: ["A", "B", "C"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install mpmath gmpy2
+      - run: cd claude/rh && python ladder.py --part ${{ matrix.part }} --out ladder_${{ matrix.part }}.json | tee ladder_${{ matrix.part }}.log
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: "claude-ladder-${{ matrix.part }}", path: "claude/rh/ladder_*", if-no-files-found: ignore }
+  collect:
+    needs: [part]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: "claude-ladder-*", merge-multiple: true, path: "results/claude/${{ github.run_id }}" }
+      - run: |
+          git config user.name "claude-chat-seat"
+          git config user.email "claude-chat-seat@users.noreply.github.com"
+          git add results/claude || true
+          git commit -m "claude-ladder results run ${{ github.run_id }}" || echo "nothing to commit"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

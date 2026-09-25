@@ -1,0 +1,58 @@
+name: claude-rh
+# Claude (chat seat) compute lane. Results are committed to results/claude/<run_id>/.
+on:
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "rinf | radial | all"
+        default: "all"
+      rinf_Ns:
+        description: "N list for rinf"
+        default: "6-30,32,34,36,38,40,44,48"
+permissions:
+  contents: write
+jobs:
+  rinf:
+    if: ${{ inputs.job == 'rinf' || inputs.job == 'all' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        lam: ["2.5", "3", "3.6", "4.2"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install mpmath gmpy2
+      - run: cd claude/rh && python rinf.py --lam ${{ matrix.lam }} --Ns "${{ inputs.rinf_Ns }}" --budget-min 310 --out rinf_lam${{ matrix.lam }}.jsonl
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: "claude-rinf-${{ matrix.lam }}", path: claude/rh/rinf_lam*.jsonl, if-no-files-found: ignore }
+  radial:
+    if: ${{ inputs.job == 'radial' || inputs.job == 'all' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install mpmath gmpy2 numpy
+      - run: cd claude/rh && python radial.py --out radial.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: "claude-radial", path: claude/rh/radial.json, if-no-files-found: ignore }
+  collect:
+    needs: [rinf, radial]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: "claude-*", merge-multiple: true, path: "results/claude/${{ github.run_id }}" }
+      - run: |
+          git config user.name "claude-chat-seat"
+          git config user.email "claude-chat-seat@users.noreply.github.com"
+          git add results/claude || true
+          git commit -m "claude-rh results run ${{ github.run_id }}" || echo "nothing to commit"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

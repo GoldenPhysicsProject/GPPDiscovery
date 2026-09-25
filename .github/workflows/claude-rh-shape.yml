@@ -1,0 +1,41 @@
+name: claude-rh-shape
+# Claude (chat seat): shape of the fixed-lambda compensated-Weyl remainder; kappa_N track.
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  shape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { lam: "2.5", Ns: "12,18,24,30,36,42,48" }
+          - { lam: "3",   Ns: "12,18,24,30,36,42,48" }
+          - { lam: "3.6", Ns: "12,18,24,30,36,42,48,56" }
+          - { lam: "4.2", Ns: "12,18,24,30,36,42,48,56,64" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install mpmath gmpy2
+      - run: cd claude/rh && python rinf_shape.py --lam ${{ matrix.lam }} --Ns "${{ matrix.Ns }}" --out shape_lam${{ matrix.lam }}.json
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: "claude-shape-${{ matrix.lam }}", path: claude/rh/shape_lam*.json, if-no-files-found: ignore }
+  collect:
+    needs: [shape]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: "claude-shape-*", merge-multiple: true, path: "results/claude/${{ github.run_id }}" }
+      - run: |
+          git config user.name "claude-chat-seat"
+          git config user.email "claude-chat-seat@users.noreply.github.com"
+          git add results/claude || true
+          git commit -m "claude-rh-shape results run ${{ github.run_id }}" || echo "nothing to commit"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

@@ -1,0 +1,42 @@
+name: claude-rh-coef
+# Claude (chat seat): Polya-Jensen coefficient track (a_lambda and log-Taylor coefficients vs N, lambda).
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  coef:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { lam: "2.5", Ns: "4:40:1" }
+          - { lam: "3",   Ns: "4:48:1" }
+          - { lam: "3.6", Ns: "6:64:2" }
+          - { lam: "4.2", Ns: "8:72:2" }
+          - { lam: "4.8", Ns: "12:84:3" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install mpmath gmpy2
+      - run: cd claude/rh && python coef.py --lam ${{ matrix.lam }} --Ns "${{ matrix.Ns }}" --out coef_lam${{ matrix.lam }}.jsonl
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: "claude-coef-${{ matrix.lam }}", path: claude/rh/coef_lam*.jsonl, if-no-files-found: ignore }
+  collect:
+    needs: [coef]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: "claude-coef-*", merge-multiple: true, path: "results/claude/${{ github.run_id }}" }
+      - run: |
+          git config user.name "claude-chat-seat"
+          git config user.email "claude-chat-seat@users.noreply.github.com"
+          git add results/claude || true
+          git commit -m "claude-rh-coef results run ${{ github.run_id }}" || echo "nothing to commit"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

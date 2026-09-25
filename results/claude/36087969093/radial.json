@@ -1,0 +1,123 @@
+{
+ "part_a_radial_stiffness": [
+  {
+   "sigma": 0.5,
+   "min_total": 0.0,
+   "t_at_min_total": 0.025,
+   "min_zeta_channel": -1.4747017132876203,
+   "frac_t_zeta_negative": 0.9475,
+   "min_relative_margin": 0.0,
+   "t_at_min_relative_margin": 0.025,
+   "min_gamma_channel": -2.6810523178589887,
+   "min_pole_channel": 0.0
+  },
+  {
+   "sigma": 0.51,
+   "min_total": 0.00046210118193952543,
+   "t_at_min_total": 0.025,
+   "min_zeta_channel": -1.458292199478241,
+   "frac_t_zeta_negative": 0.8883333333333333,
+   "min_relative_margin": 8.498243459871179e-05,
+   "t_at_min_relative_margin": 0.025,
+   "min_gamma_channel": -2.639139331438007,
+   "min_pole_channel": -0.07943371037890438
+  },
+  {
+   "sigma": 0.55,
+   "min_total": 0.002310496988147559,
+   "t_at_min_total": 0.025,
+   "min_zeta_channel": -1.3927494654779384,
+   "frac_t_zeta_negative": 0.8166666666666667,
+   "min_relative_margin": 0.00040004177761508437,
+   "t_at_min_relative_margin": 0.025,
+   "min_gamma_channel": -2.4857127454552246,
+   "min_pole_channel": -0.4009516256938941
+  },
+  {
+   "sigma": 0.6,
+   "min_total": 0.004620938218747761,
+   "t_at_min_total": 0.025,
+   "min_zeta_channel": -1.3322635359216555,
+   "frac_t_zeta_negative": 0.76375,
+   "min_relative_margin": 0.0007335995353852125,
+   "t_at_min_relative_margin": 0.025,
+   "min_gamma_channel": -2.320691738849836,
+   "min_pole_channel": -0.826494210629244
+  },
+  {
+   "sigma": 0.75,
+   "min_total": 0.011551370016801066,
+   "t_at_min_total": 0.025,
+   "min_zeta_channel": -1.1922343763340761,
+   "frac_t_zeta_negative": 0.6679166666666667,
+   "min_relative_margin": 0.0012604714811217655,
+   "t_at_min_relative_margin": 0.025,
+   "min_gamma_channel": -1.9478441566927898,
+   "min_pole_channel": -2.6285425434885332
+  },
+  {
+   "sigma": 1.0,
+   "min_total": 0.02309577844029498,
+   "t_at_min_total": 0.025,
+   "min_zeta_channel": -0.9722264937848167,
+   "frac_t_zeta_negative": 0.57125,
+   "min_relative_margin": 0.007378791737063615,
+   "t_at_min_relative_margin": 0.025,
+   "min_gamma_channel": -1.553462973214488,
+   "min_pole_channel": 6.94685624579471e-05
+  }
+ ],
+ "part_b_field_vs_current": [
+  {
+   "x": 1000,
+   "L": 6.907755278982137,
+   "sup_field": 3.6742041004322465,
+   "sup_current": 6.481353518550062,
+   "t_sup_current": 21.027342447482493,
+   "field_at_gamma1": 0.0756964609616846,
+   "current_at_gamma1": 6.367428609185431,
+   "field_minus_limit_max": 0.015810860683846614
+  },
+  {
+   "x": 10000,
+   "L": 9.210340371976184,
+   "sup_field": 3.668082834322751,
+   "sup_current": 9.440644281964323,
+   "t_sup_current": 59.31143714571524,
+   "field_at_gamma1": 0.07558507443404419,
+   "current_at_gamma1": 8.860779132730636,
+   "field_minus_limit_max": 0.004999960832935078
+  },
+  {
+   "x": 100000,
+   "L": 11.512925464970229,
+   "sup_field": 3.662989014087477,
+   "sup_current": 11.193113493899173,
+   "t_sup_current": 40.936645548516175,
+   "field_at_gamma1": 0.07169135051149264,
+   "current_at_gamma1": 10.918991114303356,
+   "field_minus_limit_max": 0.001581137520468833
+  },
+  {
+   "x": 1000000,
+   "L": 13.815510557964274,
+   "sup_field": 3.664105206009777,
+   "sup_current": 13.788746050230397,
+   "t_sup_current": 14.134725141734693,
+   "field_at_gamma1": 0.07048102780750286,
+   "current_at_gamma1": 13.7887460502304,
+   "field_minus_limit_max": 0.0004999999602794235
+  },
+  {
+   "x": 10000000,
+   "L": 16.11809565095832,
+   "sup_field": 3.664428112049275,
+   "sup_current": 15.985765265901495,
+   "t_sup_current": 21.027342447482493,
+   "field_at_gamma1": 0.07054545958405935,
+   "current_at_gamma1": 15.507036348435811,
+   "field_minus_limit_max": 0.00015811388387277766
+  }
+ ],
+ "sec": 1062.5
+}

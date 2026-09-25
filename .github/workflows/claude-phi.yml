@@ -1,0 +1,43 @@
+name: claude-phi
+# Claude (chat seat): CCM ground state vs Riemann's Phi over a lambda grid.
+on:
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  phi:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { lam: "2.5", Ns: "6,7,12,24,40" }
+          - { lam: "3",   Ns: "12,16,24,40" }
+          - { lam: "3.6", Ns: "21,22,30,48" }
+          - { lam: "4.2", Ns: "34,40,56" }
+          - { lam: "4.8", Ns: "48,51,64" }
+          - { lam: "5.4", Ns: "60,66,72" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install mpmath gmpy2
+      - run: cd claude/rh && python phi_ground.py --lam ${{ matrix.lam }} --Ns "${{ matrix.Ns }}" --out phi_lam${{ matrix.lam }}.jsonl
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: "claude-phi-${{ matrix.lam }}", path: claude/rh/phi_lam*.jsonl, if-no-files-found: ignore }
+  collect:
+    needs: [phi]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { pattern: "claude-phi-*", merge-multiple: true, path: "results/claude/${{ github.run_id }}" }
+      - run: |
+          git config user.name "claude-chat-seat"
+          git config user.email "claude-chat-seat@users.noreply.github.com"
+          git add results/claude || true
+          git commit -m "claude-phi results run ${{ github.run_id }}" || echo "nothing to commit"
+          for i in 1 2 3; do git pull --rebase && git push && break; sleep 5; done

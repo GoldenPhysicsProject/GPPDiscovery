@@ -1,0 +1,45 @@
+{
+ "A": [
+  {
+   "sigma": 0.55,
+   "min_total": 0.0023105178974809903,
+   "min_gamma_pole_primitive": -1.5751895161749077,
+   "t_at_min_gpp": 7.05,
+   "frac_gpp_negative": 0.326,
+   "m2_sector_min": -5.582394874165974,
+   "m2_sector_max": 1.5783144081933345,
+   "points_where_m2_sector_is_decisive": 326
+  },
+  {
+   "sigma": 0.6,
+   "min_total": 0.004620980033360422,
+   "min_gamma_pole_primitive": -1.2832564416627987,
+   "t_at_min_gpp": 7.05,
+   "frac_gpp_negative": 0.269,
+   "m2_sector_min": -4.330418085578236,
+   "m2_sector_max": 1.2895058861835464,
+   "points_where_m2_sector_is_decisive": 269
+  },
+  {
+   "sigma": 0.75,
+   "min_total": 0.011551474482418556,
+   "min_gamma_pole_primitive": -0.7628642289993859,
+   "t_at_min_gpp": 7.05,
+   "frac_gpp_negative": 0.137,
+   "m2_sector_min": -1.872536694115568,
+   "m2_sector_max": 0.7784819051386194,
+   "points_where_m2_sector_is_decisive": 137
+  },
+  {
+   "sigma": 0.9,
+   "min_total": 0.018479461928674112,
+   "min_gamma_pole_primitive": -0.4900322442018981,
+   "t_at_min_gpp": 7.05,
+   "frac_gpp_negative": 0.076,
+   "m2_sector_min": -1.0312325581574306,
+   "m2_sector_max": 0.5150029372817989,
+   "points_where_m2_sector_is_decisive": 76
+  }
+ ],
+ "sec": 602
+}

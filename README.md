@@ -1,39 +1,47 @@
 # GPPDiscovery
 
 Numeric and exploratory research workbench for the Golden Physics Project's shadow
-framework — the standing discovery repo behind
+holography framework — the standing discovery repo behind
 [GPPVerify](https://github.com/GoldenPhysicsProject/GPPVerify), which carries the
 formalized, Lean 4-checked results.
 
 ## The framework, briefly
 
-The central claim, developed at length in Daniel Toupin's *On the Nature of Nature*
-(book manuscript, evolving; companion papers and preprints in Drive; running commentary
-at [goldenphysics.org](https://goldenphysics.org)): shadow symmetry in celestial
-holography — the conformal-dimension involution `Δ ↔ 2-Δ` — is time reversal `T`. This
-identification traces to a single root, self-dual Haar measure on `(R⁺, ×)`
-(`dμ(ω) = dμ(ω⁻¹)`), grown by three Cayley–Dickson doublings into the Grassmannian
-`Gr(2,4)`. Under the identification `Δ = 2s`, shadow symmetry becomes the Riemann zeta
-functional equation `s ↔ 1-s`, and celestial unitarity `Re(Δ) = 1` becomes the critical
-line `Re(s) = 1/2` — the same fixed-point set of the same involution, read in two
-languages. The same root structure is argued to reach the Birch–Swinnerton-Dyer
-conjecture, the Yang–Mills mass gap, the Born rule and measurement as Haar projection,
-and the Standard Model's gauge group and generation count from the division-algebra
-tower.
+**Shadow holography.** One involution appears in two places. It is the celestial shadow map
+`Δ ↦ 2 − Δ` on conformal dimensions, and the zeta functional equation `s ↦ 1 − s`. Under
+`Δ = 2s` they coincide, and the reflection `τ(s) = 1 − s̄` fixes exactly the critical line
+(celestial `Re Δ = 1`). The framework, developed in Daniel Toupin's *On the Nature of
+Nature*, reads this as a nested holographic dictionary. Each level is a Mellin or
+Pontryagin duality, so each is exact:
 
-This is a live research program, not a closed result, and its own primary source keeps
-an explicit ledger of what's rigorously proven, what's argued but not yet peer-reviewed,
-what's open, and what's conjectural — this repo inherits that discipline rather than
-restating the book's claims as settled. **Nothing in this repo is proved.** Numeric
-evidence, derivations worked by hand, and literature checks live here; the moment a
-result is solid enough to state as an actual theorem, it gets formalized in Lean in
-GPPVerify (no `sorry`, no axiom asserting the open claim, CI-verified — see that repo's
-own `CLAUDE.md`). This repo's own `CLAUDE.md` documents the discovery → formalization
-workflow and the branch-hygiene discipline that keeps work from getting orphaned between
-the two.
+- **Line ↔ sphere.** The multiplicative line `ℝ₊`, split at `x = 1`, is the boundary. The
+  spectral sphere, split by the critical line (the equator), is its hologram. The inversion
+  `x ↦ 1/x` becomes `s ↦ 1 − s̄`.
+- **Integers ↔ functional equation.** The integers are the Fourier modes of a circle, and
+  Poisson self-duality becomes the functional equation.
+- **Primes ↔ torus.** The primes span a compact torus `∏ S¹`, and the critical line embeds
+  in it densely: a hologram inside a hologram.
+
+In this language the functional equation says the hologram is *symmetric*. RH is one open
+question inside the framework: whether the hologram is also *positive* (reflection-positive
+across the equator). Celestial scattering meets the same equator in its scale sector. That
+is a structural parallel, not a claim that `ξ` is a physical correlator. The full write-up,
+with what is a theorem, what is open, and what has been killed, is
+[`discovery/arithmetic_holography/ARITHMETIC_HOLOGRAPHY_RIGOROUS.md`](discovery/arithmetic_holography/ARITHMETIC_HOLOGRAPHY_RIGOROUS.md).
+
+**Nothing in this repo is proved.** It holds numeric evidence, hand derivations, and
+literature checks. Once a result is solid enough to state as a theorem, it is formalized in
+[GPPVerify](https://github.com/GoldenPhysicsProject/GPPVerify) (no `sorry`, no axiom
+asserting an open claim, CI-verified). `CLAUDE.md` documents that workflow and the
+branch-hygiene rules.
 
 ## Active threads
 
+- **`discovery/arithmetic_holography/`**: making the shadow-holography dictionary rigorous.
+  This covers the three levels above, the Osterwalder–Schrader form of the one open
+  positivity statement, and the constraints any route must respect (Beurling /
+  Davenport–Heilbronn, de Bruijn–Newman, the Fisher no-go). It includes a numerical
+  falsifier (`riemann_split_hb.py`) that killed one proposed hemisphere-dominance route.
 - **`weil_decay/`** (root scripts + `discovery/weil_decay/`) — the truncated Weil
   quadratic form. Connes–van Suijlekom and Connes–Consani–Moscovici build, for a prime
   cutoff `c` and band `N`, a finite Galerkin matrix `Q(c)` whose zeros provably sit on
@@ -50,10 +58,11 @@ the two.
 - **`discovery/number_thermodynamics/`** — the canonical Gibbs distribution
   `P_β(n) = n⁻β/ζ(β)` on the positive integers and its thermodynamic reading.
 
-## The Weil-decay question
+## Thread detail: the Weil-decay scan
 
 `λ_min(c)`, the smallest even-sector eigenvalue of `Q(c)`, is non-negative for every
-finite `c` (Weil positivity, hence RH, is this holding in the limit). We are not testing
+finite `c`. (Weil positivity, and hence RH, is this holding in the limit. This is one numerical
+probe of the positivity question, not a route the project is built around.) We are not testing
 whether it's positive — we're measuring **how fast it decays**:
 
 > Is `log λ_min` linear in `log c`, and if so, what is the constant?

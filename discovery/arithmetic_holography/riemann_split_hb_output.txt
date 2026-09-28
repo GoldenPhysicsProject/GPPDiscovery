@@ -1,0 +1,11 @@
+check (2.0 + 0.0j) 0.0 0.5236
+check (0.5 + 14.1347249999999995395683072275j) 4.8135e-32 1.9598e-10
+check (0.699999999999999955591079014994 + 30.0j) 1.699e-31 1.6677e-8
+check (0.299999999999999988897769753748 + 5.0j) 9.9804e-32 0.27584
+sigma=0.51: max |E(1-s)|/|E(s)| = 1.0070681 at t=6.0; violations=291
+sigma=0.55: max |E(1-s)|/|E(s)| = 1.0358503 at t=6.0; violations=286
+sigma=0.6: max |E(1-s)|/|E(s)| = 1.0730284 at t=6.0; violations=274
+sigma=0.75: max |E(1-s)|/|E(s)| = 1.193524 at t=6.0; violations=275
+sigma=1.0: max |E(1-s)|/|E(s)| = 1.4318155 at t=6.0; violations=282
+sigma=1.25: max |E(1-s)|/|E(s)| = 1.7367038 at t=6.0; violations=283
+sigma=1.5: max |E(1-s)|/|E(s)| = 2.1463669 at t=6.0; violations=279

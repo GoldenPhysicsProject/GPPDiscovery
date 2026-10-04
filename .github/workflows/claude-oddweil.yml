@@ -1,0 +1,50 @@
+name: claude-oddweil
+# Claude chat seat: odd semilocal Weil thread (discovery/odd_weil). Complex local-root Euler search,
+# sharded across the matrix; results are committed back to discovery/odd_weil/results/.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['discovery/odd_weil/euler_complex_shard.py', 'discovery/odd_weil/collect_complex.py', '.github/workflows/claude-oddweil.yml']
+permissions:
+  contents: write
+jobs:
+  shard:
+    runs-on: ubuntu-latest
+    timeout-minutes: 340
+    strategy:
+      fail-fast: false
+      max-parallel: 20
+      matrix:
+        lam_N: ['5.0 22', '6.0 26']
+        shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install numpy scipy mpmath
+      - working-directory: discovery/odd_weil
+        run: |
+          set -- ${{ matrix.lam_N }}
+          python euler_complex_shard.py $1 $2 $(( ${{ matrix.shard }} * 20 )) 20 shard.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: shard-${{ strategy.job-index }}
+          path: discovery/odd_weil/shard.json
+  collect:
+    needs: shard
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install numpy
+      - uses: actions/download-artifact@v4
+        with: {path: artifacts}
+      - run: python discovery/odd_weil/collect_complex.py
+      - run: |
+          git config user.name "gpp-bot"
+          git config user.email "dtoupin@goldenphysics.org"
+          git add discovery/odd_weil/results
+          git commit -m "odd_weil: complex Euler search results $(date -u +%FT%TZ)" || echo "no change"
+          git pull --rebase origin main && git push

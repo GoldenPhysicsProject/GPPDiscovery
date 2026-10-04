@@ -49,6 +49,9 @@ out["k1_closed_form_check"] = [float(abs((1/(r["a"]+r["b"])**2) - r["lhs"])) for
 
 ok = out["gamma_product_max_relerr"] < 1e-20 and out["P_hat_max_abserr"] < 1e-12 and all(r["relerr"] < 1e-12 for r in rows)
 out["all_pass"] = bool(ok)
-json.dump(out, open(sys.argv[1] if len(sys.argv) > 1 else "sewing.json", "w"), indent=1)
+import os
+p = sys.argv[1] if len(sys.argv) > 1 else "sewing.json"
+os.makedirs(os.path.dirname(p) or ".", exist_ok=True)
+json.dump(out, open(p, "w"), indent=1)
 print(json.dumps(out, indent=1))
 sys.exit(0 if ok else 1)

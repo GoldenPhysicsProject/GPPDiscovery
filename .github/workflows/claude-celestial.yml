@@ -1,0 +1,24 @@
+name: claude-celestial
+# Claude chat seat: celestial shadow-sewing checks (discovery/celestial_loops). Results committed back.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['discovery/celestial_loops/*.py', '.github/workflows/claude-celestial.yml']
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install mpmath
+      - run: python discovery/celestial_loops/check_sewing.py discovery/celestial_loops/results/sewing.json
+      - if: always()
+        run: |
+          git config user.name "gpp-bot"
+          git config user.email "dtoupin@goldenphysics.org"
+          git add discovery/celestial_loops/results
+          git commit -m "celestial_loops: sewing checks $(date -u +%FT%TZ)" || echo "no change"
+          git pull --rebase origin main && git push

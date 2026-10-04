@@ -1,5 +1,5 @@
 name: claude-oddweil
-# Claude chat seat: odd semilocal Weil thread (discovery/odd_weil). Complex local-root Euler search,
+# Claude chat seat: odd semilocal Weil thread (discovery/odd_weil). Euler local-root search (real or complex roots),
 # sharded across the matrix; results are committed back to discovery/odd_weil/results/.
 on:
   workflow_dispatch:
@@ -15,7 +15,8 @@ jobs:
       fail-fast: false
       max-parallel: 20
       matrix:
-        lam_N: ['5.0 22', '6.0 26']
+        lam_N: ['4.0 20', '5.0 22', '6.0 26']
+        mode: [real]
         shard: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +26,7 @@ jobs:
       - working-directory: discovery/odd_weil
         run: |
           set -- ${{ matrix.lam_N }}
-          python euler_complex_shard.py $1 $2 $(( ${{ matrix.shard }} * 20 )) 20 shard.json
+          python euler_complex_shard.py $1 $2 $(( 1000 + ${{ matrix.shard }} * 40 )) 40 shard.json ${{ matrix.mode }}
       - uses: actions/upload-artifact@v4
         with:
           name: shard-${{ strategy.job-index }}

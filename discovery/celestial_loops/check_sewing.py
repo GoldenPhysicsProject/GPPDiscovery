@@ -23,7 +23,8 @@ out = {}
 # 1
 lams = [mp.mpf(x) for x in ("0.1", "0.5", "1", "2.5", "7")]
 out["gamma_product_max_relerr"] = float(max(abs(mp.gamma(1+1j*l)*mp.gamma(1-1j*l) - mp.pi*l/mp.sinh(mp.pi*l))/(mp.pi*l/mp.sinh(mp.pi*l)) for l in lams))
-out["old_chat_form_pi_over_sinh_relerr_at_lam1"] = float(abs(mp.gamma(1+1j)*mp.gamma(1-1j) - mp.pi/mp.sinh(mp.pi))/(mp.pi/mp.sinh(mp.pi)))
+# lam = 1 is degenerate (pi*lam/sinh = pi/sinh there); test the old-chat form at lam = 2, where it is off by the factor lam
+out["old_chat_form_pi_over_sinh_ratio_at_lam2"] = float(((mp.gamma(1+2j)*mp.gamma(1-2j))/(mp.pi/mp.sinh(2*mp.pi))).real)
 
 # 2
 P = lambda l: mp.pi*l/mp.sinh(mp.pi*l) if l != 0 else mp.mpf(1)

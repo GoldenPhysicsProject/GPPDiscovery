@@ -1,6 +1,6 @@
 {
  "gamma_product_max_relerr": 1.1870995158639352e-30,
- "old_chat_form_pi_over_sinh_relerr_at_lam1": 1.8124463425258566e-31,
+ "old_chat_form_pi_over_sinh_ratio_at_lam2": 2.0,
  "P_hat_max_abserr": 9.860761315262648e-32,
  "plancherel_sewing": [
   {

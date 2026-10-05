@@ -3,7 +3,7 @@ name: claude-splitfold
 on:
   workflow_dispatch:
   push:
-    paths: ['discovery/odd_weil/split_vs_folded.py', '.github/workflows/claude-splitfold.yml']
+    paths: ['discovery/odd_weil/split_vs_folded_disc.py', 'discovery/odd_weil/split_vs_folded.py', '.github/workflows/claude-splitfold.yml']
 permissions:
   contents: write
 jobs:
@@ -16,7 +16,7 @@ jobs:
         with: {python-version: '3.11'}
       - run: pip install numpy scipy mpmath
       - working-directory: discovery/odd_weil
-        run: mkdir -p results && python split_vs_folded.py results/split_vs_folded.json 20
+        run: mkdir -p results && python split_vs_folded_disc.py results/split_vs_folded_disc.json
       - if: always()
         run: |
           git config user.name "gpp-bot"

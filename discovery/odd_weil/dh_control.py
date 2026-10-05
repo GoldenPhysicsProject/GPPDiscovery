@@ -20,9 +20,32 @@ from numpy.polynomial.legendre import leggauss
 GAMMA_E = 0.5772156649015329
 
 
+def kronecker(d, n):
+    """Kronecker symbol (d/n), n >= 1."""
+    if n == 1: return 1
+    r = 1
+    while n % 2 == 0:
+        n //= 2
+        if d % 2 == 0: return 0
+        r *= 1 if d % 8 in (1, 7) else -1
+    a, m = d % n, n
+    while a:
+        while a % 2 == 0:
+            a //= 2
+            if m % 8 in (3, 5): r = -r
+        a, m = m, a
+        if a % 4 == 3 and m % 4 == 3: r = -r
+        a %= m
+    return r if m == 1 else 0
+
+
 def dirichlet_coeffs(kind, M):
     a = np.zeros(M + 1)
-    if kind == "zeta":
+    if isinstance(kind, str) and kind.startswith("kron:"):
+        d = int(kind[5:])
+        for n in range(1, M + 1):
+            a[n] = kronecker(d, n)
+    elif kind == "zeta":
         a[1:] = 1.0
     elif kind == "dh":
         kap = (np.sqrt(10 - 2 * np.sqrt(5)) - 2) / (np.sqrt(5) - 1)
@@ -79,7 +102,10 @@ def Gsym_matrix(N, L, u):
 
 def build(kind, lam, N, nq=1200):
     L = np.log(lam)
-    q, kinf = {"zeta": (1.0, 0.0), "dh": (5.0, 1.0), "chi5real": (5.0, 0.0), "chi4": (4.0, 1.0)}[kind]
+    if kind.startswith("kron:"):
+        d = int(kind[5:]); q, kinf = float(abs(d)), (0.0 if d > 0 else 1.0)
+    else:
+        q, kinf = {"zeta": (1.0, 0.0), "dh": (5.0, 1.0), "chi5real": (5.0, 0.0), "chi4": (4.0, 1.0)}[kind]
     G0 = L * np.eye(N)
     # Archimedean, u-space Gauss-Legendre on [0, 2L]
     t, w = leggauss(nq)

@@ -1,6 +1,6 @@
 # Tactic sweep results
 
-Generated 2026-10-05T11:18:10Z (Mathlib v4.33.1, `import Mathlib`).
+Generated 2026-10-05T11:40:12Z (Mathlib v4.33.1, `import Mathlib`).
 
 | target | map item | closed? | first closing script |
 |---|---|---|---|
@@ -15,3 +15,5 @@ Generated 2026-10-05T11:18:10Z (Mathlib v4.33.1, `import Mathlib`).
 | cosh_half_log2 | 5.7 helper | no | `` |
 | completely_additive_primes | 5.9 | yes | `apply?` |
 | growth_real_positive_coeffs | 5.10a | yes | `intro k` ... |
+| residue_weight_identity | 5.11 | yes | `have hp : Real.pi ≠ 0 := Real.pi_ne_zero` ... |
+| hadamard_psd | 5.12 | yes | `exact hA.hadamard hB` |

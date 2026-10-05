@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-05T11:18:10Z",
+ "generated": "2026-10-05T11:40:12Z",
  "targets": [
   {
    "name": "fejer_nonneg",
@@ -7,7 +7,7 @@
    "stmt": "(l γ : ℝ) (hl : 0 ≤ l) : 0 ≤ l * (Real.sin (l * γ / 2) / (l * γ / 2)) ^ 2",
    "groups": {
     "h": {
-     "seconds": 5.3,
+     "seconds": 6.7,
      "timed_out": false,
      "variants": [
       {
@@ -20,7 +20,7 @@
      "raw_tail": ""
     },
     "b": {
-     "seconds": 5.5,
+     "seconds": 6.0,
      "timed_out": false,
      "variants": [
       {
@@ -169,7 +169,7 @@
      "raw_tail": "eqc] False propositions\n    [prop] 0 ≤ l * (Real.sin (l * γ * 2⁻¹) * (l * γ * 2⁻¹)⁻¹) ^ 2\n  [eqc] Equivalence classes\n    [eqc] {(l * γ * 2⁻¹)⁻¹, 0, Real.sin (l * γ * 2⁻¹) * (l * γ * 2⁻¹)⁻¹, l * γ * 2⁻¹}\n    [eqc] {1, 2 * 2⁻¹}\n    [eqc] {(l * γ * 2⁻¹)⁻¹ ^ 2, (Real.sin (l * γ * 2⁻¹) * (l * γ * 2⁻¹)⁻¹) ^ 2}\n  [cases] Case analyses\n    [cases] [1/2]: if l * γ * 2⁻¹ = 0 then (l * γ * 2⁻¹)⁻¹ = 0 else l * γ * 2⁻¹ * (l * γ * 2⁻¹)⁻¹ = 1\n      [cases] source: Initial goal\n    [cases] [1/2]: 0 = Real.sin (l * γ * 2⁻¹) * (l * γ * 2⁻¹)⁻¹\n      [cases] source: Model-based theory combination at argument #4 of\n            (l * γ * 2⁻¹)⁻¹ ^ 2\n          and\n            (Real.sin (l * γ * 2⁻¹) * (l * γ * 2⁻¹)⁻¹) ^ 2\n  [ematch] E-matching patterns\n    [thm] Set.subset_def: [@LE.le _ _ #1 #0]\n    [thm] Nat.pow_pos: [@HPow.hPow `[ℕ] `[ℕ] `[ℕ] `[instHPow] #2 #1]\n    [thm] Nat.div_pow_of_pos: [@HPow.hPow `[ℕ] `[ℕ] `[ℕ] `[instHPow] #2 #1]\n  [linarith] Linarith assignment for `ℝ`\n    [assign] l := 1\n    [assign] γ := 3\n    [assign] Real.sin (l * γ * 2⁻¹) := 9\n    [assign] 「Real.sin (l * γ * 2⁻¹) ^ 2」 := 14\n    [assign] 「(l * γ * 2⁻¹)⁻¹ ^ 2」 := 15\n    [assign] 「(Real.sin (l * γ * 2⁻¹) * (l * γ * 2⁻¹)⁻¹) ^ 2」 := 15\n  [ring] Ring `ℝ`\n    [basis] Basis\n      [_] l * γ = 0\n      [_] 2 * 2⁻¹ + -1 = 0\n      [_] (l * γ * 2⁻¹)⁻¹ = 0\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fejer_nonneg_b.lean:54:102: error: unsolved goals\nl γ : ℝ\nhl : 0 ≤ l\n⊢ 0 ≤ l * (Real.sin (l * γ / 2) / (l * γ / 2)) ^ 2\n"
     },
     "s": {
-     "seconds": 29.7,
+     "seconds": 32.2,
      "timed_out": false,
      "variants": [
       {
@@ -206,7 +206,7 @@
    "stmt": "(l : ℝ) (z : ℂ) (hl : l ≠ 0) (hz : z ≠ 0) : 2 * (Complex.cosh ((l : ℂ) * z) - 1) / ((l : ℂ) * z ^ 2) = (l : ℂ) * (Complex.sinh ((l : ℂ) * z / 2) / ((l : ℂ) * z / 2)) ^ 2",
    "groups": {
     "h": {
-     "seconds": 5.2,
+     "seconds": 5.6,
      "timed_out": false,
      "variants": [
       {
@@ -229,7 +229,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_closed_form_h.lean:11:2: error: ring failed, ring expressions not equal\nl : ℝ\nz : ℂ\nhl : l ≠ 0\nhz : z ≠ 0\nh2 : ↑l * z = 2 * (↑l * z / 2)\nh3 : Complex.cosh (↑l * z / 2) ^ 2 - Complex.sinh (↑l * z / 2) ^ 2 = 1\nhl' : ↑l ≠ 0\n⊢ -1 + Complex.cosh (↑l * z / 2) ^ 2 - Complex.cosh (↑l * z / 2) ^ 2 * ↑l * 8 - Complex.sinh (↑l * z / 2) ^ 2 +\n        Complex.sinh (↑l * z / 2) ^ 2 * ↑l * 8 +\n      ↑l * 8 =\n    0\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_closed_form_h.lean:20:2: error: ring failed, ring expressions not equal\nl : ℝ\nz : ℂ\nhl : l ≠ 0\nhz : z ≠ 0\nhl' : ↑l ≠ 0\nh3 : Complex.cosh (↑l * z / 2) ^ 2 - Complex.sinh (↑l * z / 2) ^ 2 = 1\nh4 : Complex.cosh (↑l * z) = Complex.cosh (↑l * z / 2) ^ 2 + Complex.sinh (↑l * z / 2) ^ 2\n⊢ -1 + Complex.cosh (↑l * z / 2) ^ 2 + Complex.cosh (↑l * z / 2) ^ 2 * ↑l * z ^ 2 * 8 - Complex.sinh (↑l * z / 2) ^ 2 -\n        Complex.sinh (↑l * z / 2) ^ 2 * ↑l * z ^ 2 * 8 -\n      ↑l * z ^ 2 * 8 =\n    0\n"
     },
     "b": {
-     "seconds": 5.5,
+     "seconds": 6.1,
      "timed_out": false,
      "variants": [
       {
@@ -388,7 +388,7 @@
      "raw_tail": "    (Complex.sinh (↑l * z * 2⁻¹) ^ 2 *\n                      (2 * (Complex.cosh (↑l * z) - 1) * (↑l * z ^ 2)⁻¹ -\n                          ↑l * (Complex.sinh (↑l * z * 2⁻¹) * (↑l * z * 2⁻¹)⁻¹) ^ 2)⁻¹) +\n                -2 *\n                  (Complex.cosh (↑l * z) *\n                    (2 * (Complex.cosh (↑l * z) - 1) * (↑l * z ^ 2)⁻¹ -\n                        ↑l * (Complex.sinh (↑l * z * 2⁻¹) * (↑l * z * 2⁻¹)⁻¹) ^ 2)⁻¹) +\n              2 *\n                (2 * (Complex.cosh (↑l * z) - 1) * (↑l * z ^ 2)⁻¹ -\n                    ↑l * (Complex.sinh (↑l * z * 2⁻¹) * (↑l * z * 2⁻¹)⁻¹) ^ 2)⁻¹ =\n            0\n      [_] z * z⁻¹ + -1 = 0\n      [_] z⁻¹ ^ 2 + -1 * (↑l * (↑l * z ^ 2)⁻¹) = 0\n      [_] 2 * (z * (↑l * z ^ 2)⁻¹) + -1 * (↑l * z * 2⁻¹)⁻¹ = 0\n      [_] ↑l * (↑l * z * 2⁻¹)⁻¹ + -2 * z⁻¹ = 0\n      [_] z⁻¹ * (↑l * z * 2⁻¹)⁻¹ + -2 * (↑l * z ^ 2)⁻¹ = 0\n      [_] 2 * 2⁻¹ + -1 = 0\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_closed_form_b.lean:54:199: error: unsolved goals\nl : ℝ\nz : ℂ\nhl : l ≠ 0\nhz : z ≠ 0\n⊢ 2 * ((Complex.exp (↑l * z) + Complex.exp (-(↑l * z))) / 2 - 1) / (↑l * z ^ 2) =\n    ↑l * ((Complex.exp (↑l * z / 2) - Complex.exp (-(↑l * z / 2))) / 2 / (↑l * z / 2)) ^ 2\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_closed_form_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_closed_form_b.lean:61:10: error: linarith failed to find a contradiction\nl : ℝ\nz : ℂ\nhl : l ≠ 0\nhz : z ≠ 0\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 27.3,
+     "seconds": 29.9,
      "timed_out": false,
      "variants": [
       {
@@ -419,7 +419,7 @@
    "stmt": "(l r : ℝ) (hl : 0 < l) (hr : 0 < r) : (2 * (Real.cosh (l * r) - 1) / (l * r ^ 2)) * Real.exp (-(l * r)) = (1 - Real.exp (-(l * r))) ^ 2 / (l * r ^ 2)",
    "groups": {
     "h": {
-     "seconds": 5.2,
+     "seconds": 5.7,
      "timed_out": false,
      "variants": [
       {
@@ -440,7 +440,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_tail_identity_h.lean:9:2: error: ring failed, ring expressions not equal\nl r : ℝ\nhl : 0 < l\nhr : 0 < r\nhe : Real.exp (l * r) * Real.exp (-(l * r)) = 1\n⊢ -3 + Real.exp (-(l * r)) * 2 + Real.exp (-(l * r)) * Real.exp (l * r) * 3 -\n      Real.exp (-(l * r)) ^ 2 * Real.exp (l * r) * 2 =\n    0\n"
     },
     "b": {
-     "seconds": 5.6,
+     "seconds": 6.1,
      "timed_out": false,
      "variants": [
       {
@@ -599,7 +599,7 @@
      "raw_tail": " (l * r ^ 2)⁻¹ * Real.exp (-(l * r)) -\n                        (1 - Real.exp (-(l * r))) ^ 2 * (l * r ^ 2)⁻¹)⁻¹) +\n              -1 =\n            0\n      [_] l * r ^ 2 +\n                  -2 *\n                    (Real.cosh (l * r) * Real.exp (-(l * r)) *\n                      (2 * (Real.cosh (l * r) - 1) * (l * r ^ 2)⁻¹ * Real.exp (-(l * r)) -\n                          (1 - Real.exp (-(l * r))) ^ 2 * (l * r ^ 2)⁻¹)⁻¹) +\n                Real.exp (-(l * r)) ^ 2 *\n                  (2 * (Real.cosh (l * r) - 1) * (l * r ^ 2)⁻¹ * Real.exp (-(l * r)) -\n                      (1 - Real.exp (-(l * r))) ^ 2 * (l * r ^ 2)⁻¹)⁻¹ +\n              (2 * (Real.cosh (l * r) - 1) * (l * r ^ 2)⁻¹ * Real.exp (-(l * r)) -\n                  (1 - Real.exp (-(l * r))) ^ 2 * (l * r ^ 2)⁻¹)⁻¹ =\n            0\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_tail_identity_b.lean:54:181: error: unsolved goals\nl r : ℝ\nhl : 0 < l\nhr : 0 < r\n⊢ 2 * ((Real.exp (l * r) + Real.exp (-(l * r))) / 2 - 1) / (l * r ^ 2) * Real.exp (-(l * r)) =\n    (1 - Real.exp (-(l * r))) ^ 2 / (l * r ^ 2)\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_tail_identity_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/H_tail_identity_b.lean:61:10: error: linarith failed to find a contradiction\ncase h1\nl r : ℝ\nhl : 0 < l\nhr : 0 < r\na✝ : 2 * (Real.cosh (l * r) - 1) / (l * r ^ 2) * Real.exp (-(l * r)) < (1 - Real.exp (-(l * r))) ^ 2 / (l * r ^ 2)\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 27.3,
+     "seconds": 29.2,
      "timed_out": false,
      "variants": [
       {
@@ -631,7 +631,7 @@
    "stmt": "{E : Type*} [NormedAddCommGroup E] [InnerProductSpace ℝ E] (f g : E) (h : ‖g‖ = ‖f‖) : ‖f - g‖ ^ 2 = 2 * (‖f‖ ^ 2 - inner ℝ f g)",
    "groups": {
     "h": {
-     "seconds": 4.9,
+     "seconds": 5.3,
      "timed_out": false,
      "variants": [
       {
@@ -650,7 +650,7 @@
      "raw_tail": ""
     },
     "b": {
-     "seconds": 5.5,
+     "seconds": 5.8,
      "timed_out": false,
      "variants": [
       {
@@ -809,7 +809,7 @@
      "raw_tail": " 2 - inner ℝ f g))⁻¹}\n  [ematch] E-matching patterns\n    [thm] Nat.pow_pos: [@HPow.hPow `[ℕ] `[ℕ] `[ℕ] `[instHPow] #2 #1]\n    [thm] Nat.div_pow_of_pos: [@HPow.hPow `[ℕ] `[ℕ] `[ℕ] `[instHPow] #2 #1]\n  [linarith] Linarith\n    [linarith] Linarith assignment for `E`\n      [assign] f := 0\n      [assign] g := 0\n    [linarith] Linarith assignment for `ℝ`\n      [assign] ‖f‖ := 2\n      [assign] ‖g‖ := 2\n      [assign] ‖f - g‖ := 3\n      [assign] inner ℝ f g := 1\n      [assign] 「‖f‖ ^ 2」 := 0\n      [assign] 「‖f - g‖ ^ 2」 := 0\n  [ring] Ring `ℝ`\n    [basis] Basis\n      [_] ‖f - g‖ ^ 2 * (‖f - g‖ ^ 2 - 2 * (‖f‖ ^ 2 - inner ℝ f g))⁻¹ +\n                  -2 * (‖f‖ ^ 2 * (‖f - g‖ ^ 2 - 2 * (‖f‖ ^ 2 - inner ℝ f g))⁻¹) +\n                2 * (inner ℝ f g * (‖f - g‖ ^ 2 - 2 * (‖f‖ ^ 2 - inner ℝ f g))⁻¹) +\n              -1 =\n            0\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/two_box_algebra_b.lean:54:160: error: unsolved goals\nE : Type u_1\ninst✝¹ : NormedAddCommGroup E\ninst✝ : InnerProductSpace ℝ E\nf g : E\nh : ‖g‖ = ‖f‖\n⊢ ‖f - g‖ ^ 2 = 2 * (‖f‖ ^ 2 - inner ℝ f g)\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/two_box_algebra_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/two_box_algebra_b.lean:61:10: error: linarith failed to find a contradiction\ncase h1\nE : Type u_1\ninst✝¹ : NormedAddCommGroup E\ninst✝ : InnerProductSpace ℝ E\nf g : E\nh : ‖g‖ = ‖f‖\na✝ : ‖f - g‖ ^ 2 < 2 * (‖f‖ ^ 2 - inner ℝ f g)\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 26.8,
+     "seconds": 28.9,
      "timed_out": false,
      "variants": [
       {
@@ -842,7 +842,7 @@
    "stmt": "(n : ℕ) (a γ : Fin n → ℝ) (t : ℝ) (ha : ∀ k, 0 ≤ a k) : ∑ k, a k * Real.cos (γ k * t) ≤ ∑ k, a k",
    "groups": {
     "h": {
-     "seconds": 4.9,
+     "seconds": 5.4,
      "timed_out": false,
      "variants": [
       {
@@ -855,7 +855,7 @@
      "raw_tail": ""
     },
     "b": {
-     "seconds": 5.3,
+     "seconds": 5.7,
      "timed_out": false,
      "variants": [
       {
@@ -1014,7 +1014,7 @@
      "raw_tail": "nalyses\n    [cases] [2/2]: (fun k => a k) = fun k => a k * Real.cos (γ k * t)\n      [cases] source: Initial goal\n    [cases] [1/1]: ∃ x, ¬a x = a x * Real.cos (γ x * t)\n      [cases] source: Extensionality `funext`\n  [ematch] E-matching patterns\n    [thm] ha: [@LE.le `[ℝ] `[Real.instLE] `[0] (a #0)]\n    [thm] ha: [a #0]\n    [thm] Set.subset_def: [@LE.le _ _ #1 #0]\n  [cutsat] Assignment satisfying linear constraints\n    [assign] n := 2\n  [linarith] Linarith assignment for `ℝ`\n    [assign] t := 2\n    [assign] ∑ k, a k := -1\n    [assign] ∑ k, a k * Real.cos (γ k * t) := 0\n    [assign] a w := 1\n    [assign] γ w := 11\n    [assign] Real.cos (γ w * t) := 10\n  [ring] Ring `ℝ`\n    [basis] Basis\n      [_] a w * Real.cos (γ w * t) * (a w - a w * Real.cos (γ w * t))⁻¹ +\n                -1 * (a w * (a w - a w * Real.cos (γ w * t))⁻¹) +\n              1 =\n            0\n[grind] Diagnostics\n  [thm] E-Matching instances\n    [thm] ha ↦ 1\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cos_sum_le_b.lean:54:123: error: unsolved goals\nn : ℕ\na γ : Fin n → ℝ\nt : ℝ\nha : ∀ (k : Fin n), 0 ≤ a k\n⊢ ∑ k, a k * Real.cos (γ k * t) ≤ ∑ k, a k\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cos_sum_le_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cos_sum_le_b.lean:61:10: error: linarith failed to find a contradiction\nn : ℕ\na γ : Fin n → ℝ\nt : ℝ\nha : ∀ (k : Fin n), 0 ≤ a k\na✝ : ∑ k, a k < ∑ k, a k * Real.cos (γ k * t)\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 28.4,
+     "seconds": 30.3,
      "timed_out": false,
      "variants": [
       {
@@ -1046,7 +1046,7 @@
    "stmt": "2 * (Real.cosh (Real.log 2 * (1/2)) - 1) / (Real.log 2 * (1/2) ^ 2) = (6 * Real.sqrt 2 - 8) / Real.log 2",
    "groups": {
     "h": {
-     "seconds": 5.0,
+     "seconds": 5.2,
      "timed_out": false,
      "variants": [
       {
@@ -1061,7 +1061,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_h.lean:5:32: error: unexpected token; expected ':'\n"
     },
     "b": {
-     "seconds": 4.9,
+     "seconds": 5.2,
      "timed_out": false,
      "variants": [
       {
@@ -1220,7 +1220,7 @@
      "raw_tail": "rror: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:30:32: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:33:32: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:36:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:39:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:42:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:45:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:48:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:51:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:54:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:57:33: error: unexpected token; expected ':'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/fixed_window_constant_b.lean:60:33: error: unexpected token; expected ':'\n"
     },
     "s": {
-     "seconds": 4.9,
+     "seconds": 5.1,
      "timed_out": false,
      "variants": [
       {
@@ -1251,7 +1251,7 @@
    "stmt": "(p : ℝ) (hp : 0 ≤ p) : (p + 1 + 2 * Real.sqrt p) * (p + 1 - 2 * Real.sqrt p) = (p - 1) ^ 2",
    "groups": {
     "h": {
-     "seconds": 5.1,
+     "seconds": 5.4,
      "timed_out": false,
      "variants": [
       {
@@ -1270,7 +1270,7 @@
      "raw_tail": ""
     },
     "b": {
-     "seconds": 5.3,
+     "seconds": 5.6,
      "timed_out": false,
      "variants": [
       {
@@ -1427,7 +1427,7 @@
      "raw_tail": "ne_b.lean:40:2: error: Expected type must not contain free variables\n  (p + 1 + 2 * √p) * (p + 1 - 2 * √p) = (p - 1) ^ 2\n\nHint: Use the `+revert` option to automatically clean up and revert free variables\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_norm_one_b.lean:43:2: error: Tactic `tauto` failed\n\np : ℝ\nhp : 0 ≤ p\n⊢ (p + 1 + 2 * √p) * (p + 1 - 2 * √p) = (p - 1) ^ 2\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_norm_one_b.lean:46:2: error: Tactic `aesop` failed, made no progress\nInitial goal:\n  p : ℝ\n  hp : 0 ≤ p\n  ⊢ (p + 1 + 2 * √p) * (p + 1 - 2 * √p) = (p - 1) ^ 2\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_norm_one_b.lean:49:2: error: Tactic `aesop` failed, failed to prove the goal after exhaustive search.\nInitial goal:\n  p : ℝ\n  hp : 0 ≤ p\n  ⊢ (p + 1 + 2 * √p) * (p + 1 - 2 * √p) = (p - 1) ^ 2\nRemaining goals after safe rules:\n  p : ℝ\n  hp : 0 ≤ p\n  ⊢ (p + 1 + 2 * √p) * (p + 1 - 2 * √p) = (p - 1) ^ 2\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_norm_one_b.lean:54:120: error: unsolved goals\np : ℝ\nhp : 0 ≤ p\n⊢ (p + 1 + 2 * √p) * (p + 1 - 2 * √p) = (p - 1) ^ 2\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_norm_one_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_norm_one_b.lean:61:10: error: linarith failed to find a contradiction\ncase h1\np : ℝ\nhp : 0 ≤ p\na✝ : (p + 1 + 2 * √p) * (p + 1 - 2 * √p) < (p - 1) ^ 2\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 27.2,
+     "seconds": 28.7,
      "timed_out": false,
      "variants": [
       {
@@ -1461,7 +1461,7 @@
    "stmt": "(p : ℕ) (hp : p.Prime) : (p - 1) ∣ 4 ↔ p = 2 ∨ p = 3 ∨ p = 5",
    "groups": {
     "h": {
-     "seconds": 5.0,
+     "seconds": 5.3,
      "timed_out": false,
      "variants": [
       {
@@ -1482,7 +1482,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_primes_235_h.lean:10:4: error: interval_cases failed: could not find upper bound on p\n"
     },
     "b": {
-     "seconds": 5.4,
+     "seconds": 5.7,
      "timed_out": false,
      "variants": [
       {
@@ -1641,7 +1641,7 @@
      "raw_tail": "prop] (p - 1 ∣ 4) = (¬p = 2 ∧ ¬p = 3 ∧ ¬p = 5)\n    [prop] p - 1 ∣ 4\n    [prop] -1 * ↑p + 1 ≤ 0\n  [eqc] False propositions\n    [prop] p = 2\n    [prop] p = 3\n    [prop] p = 5\n  [eqc] Equivalence classes\n    [eqc] others\n      [eqc] {↑(p - 1), if -1 * ↑p + 1 ≤ 0 then ↑p + -1 else 0, ↑p + -1}\n  [cases] Case analyses\n    [cases] [1/2]: if -1 * ↑p + 1 ≤ 0 then ↑p + -1 else 0\n      [cases] source: Initial goal\n    [cases] [1/2]: (p - 1 ∣ 4) = (¬p = 2 ∧ ¬p = 3 ∧ ¬p = 5)\n      [cases] source: Initial goal\n  [ematch] E-matching patterns\n    [thm] Set.subset_def: [@LE.le _ _ #1 #0]\n    [thm] Nat.dvd_mul_left_of_dvd: [@Dvd.dvd `[ℕ] `[Nat.instDvd] #3 #2, @HMul.hMul `[ℕ] `[ℕ] `[ℕ] `[instHMul] #0 #2]\n    [thm] Nat.dvd_mul_right_of_dvd: [@Dvd.dvd `[ℕ] `[Nat.instDvd] #3 #2, @HMul.hMul `[ℕ] `[ℕ] `[ℕ] `[instHMul] #2 #0]\n  [cutsat] Assignment satisfying linear constraints\n    [assign] p := 1\n[grind] Issues\n  [issue] non-linear divisibility constraint found\n        p - 1 ∣ 4\n  [issue] non-linear divisibility constraint found\n        p - 1 ∣ 4\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_primes_235_b.lean:54:92: error: unsolved goals\np : ℕ\nhp : Nat.Prime p\n⊢ p - 1 ∣ 4 ↔ p = 2 ∨ p = 3 ∨ p = 5\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_primes_235_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/unit_primes_235_b.lean:61:10: error: linarith failed to find a contradiction\np : ℕ\nhp : Nat.Prime p\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 27.8,
+     "seconds": 29.2,
      "timed_out": false,
      "variants": [
       {
@@ -1673,7 +1673,7 @@
    "stmt": "Real.cosh (Real.log 2 / 2) = 3 * Real.sqrt 2 / 4",
    "groups": {
     "h": {
-     "seconds": 5.0,
+     "seconds": 5.5,
      "timed_out": false,
      "variants": [
       {
@@ -1688,7 +1688,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_h.lean:5:45: error: unexpected token; expected ')'\n"
     },
     "b": {
-     "seconds": 5.0,
+     "seconds": 5.4,
      "timed_out": false,
      "variants": [
       {
@@ -1847,7 +1847,7 @@
      "raw_tail": "/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:27:45: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:30:45: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:33:45: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:36:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:39:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:42:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:45:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:48:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:51:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:54:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:57:46: error: unexpected token; expected ')'\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/cosh_half_log2_b.lean:60:46: error: unexpected token; expected ')'\n"
     },
     "s": {
-     "seconds": 4.9,
+     "seconds": 5.3,
      "timed_out": false,
      "variants": [
       {
@@ -1878,7 +1878,7 @@
    "stmt": "(f : ℕ → ℝ) (hf : ∀ n m, 0 < n → 0 < m → f (n * m) = f n + f m) (n : ℕ) (hn : 0 < n) : f n = ∑ p ∈ n.primeFactors, (n.factorization p : ℝ) * f p",
    "groups": {
     "h": {
-     "seconds": 4.9,
+     "seconds": 5.4,
      "timed_out": false,
      "variants": [
       {
@@ -1895,7 +1895,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:7:2: error: Invalid alternative name `hp`: Expected `prime_pow`, `zero`, `one`, or `coprime`\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:15:2: error: Invalid alternative name `h0`: Expected `prime_pow`, `zero`, `one`, or `coprime`\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:16:2: error: Invalid alternative name `h1`: Expected `prime_pow`, `zero`, `one`, or `coprime`\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:18:2: error: Invalid alternative name `h`: Expected `prime_pow`, `zero`, `one`, or `coprime`\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:6:2: error: Alternative `prime_pow` has not been provided\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:6:2: error: Alternative `zero` has not been provided\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:6:2: error: Alternative `one` has not been provided\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_h.lean:6:2: error: Alternative `coprime` has not been provided\n"
     },
     "b": {
-     "seconds": 5.4,
+     "seconds": 5.8,
      "timed_out": false,
      "variants": [
       {
@@ -2054,7 +2054,7 @@
      "raw_tail": "n.primeFactors, ↑(n.factorization p) * f p\n  [eqc] Equivalence classes\n    [eqc] {f (n * n), f n + f n}\n  [ematch] E-matching patterns\n    [thm] hf: [f (@HMul.hMul `[ℕ] `[ℕ] `[ℕ] `[instHMul] #3 #2)]\n    [thm] hf: [@LE.le `[ℕ] `[instLENat] `[1] #3, @LE.le `[ℕ] `[instLENat] `[1] #2]\n    [thm] Set.subset_def: [@LE.le _ _ #1 #0]\n    [thm] Nat.pow_pos: [@HPow.hPow `[ℕ] `[ℕ] `[ℕ] `[instHPow] #2 #1]\n    [thm] Nat.div_pow_of_pos: [@HPow.hPow `[ℕ] `[ℕ] `[ℕ] `[instHPow] #2 #1]\n  [cutsat] Assignment satisfying linear constraints\n    [assign] n := 1\n    [assign] 「↑n ^ 2」 := 0\n  [linarith] Linarith assignment for `ℝ`\n    [assign] f n := 0\n    [assign] ∑ p ∈ n.primeFactors, ↑(n.factorization p) * f p := 2\n    [assign] f (n * n) := 0\n[grind] Diagnostics\n  [thm] E-Matching instances\n    [thm] hf ↦ 1\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_b.lean:54:187: error: unsolved goals\nf : ℕ → ℝ\nhf : ∀ (n m : ℕ), 0 < n → 0 < m → f (n * m) = f n + f m\nn : ℕ\nhn : 0 < n\n⊢ f n = ∑ p ∈ n.primeFactors, ↑(n.factorization p) * f p\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/completely_additive_primes_b.lean:61:10: error: linarith failed to find a contradiction\ncase h1\nf : ℕ → ℝ\nhf : ∀ (n m : ℕ), 0 < n → 0 < m → f (n * m) = f n + f m\nn : ℕ\nhn : 0 < n\na✝ : f n < ∑ p ∈ n.primeFactors, ↑(n.factorization p) * f p\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 27.4,
+     "seconds": 29.0,
      "timed_out": false,
      "variants": [
       {
@@ -2085,7 +2085,7 @@
    "stmt": "(n : ℕ) (c l : Fin n → ℝ) (M : ℝ) (hc : ∀ k, 0 < c k) (hM : ∀ s : ℝ, 0 ≤ s → ∑ k, c k * Real.exp (l k * s) ≤ M) : ∀ k, l k ≤ 0",
    "groups": {
     "h": {
-     "seconds": 5.4,
+     "seconds": 5.9,
      "timed_out": false,
      "variants": [
       {
@@ -2098,7 +2098,7 @@
      "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/growth_real_positive_coeffs_h.lean:8:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.\nIf you'd rather continue using `push_neg` in your project, you can implement it as follows:\n```\nopen Lean.Parser.Tactic in\nmacro \"push_neg\" cfg:optConfig loc:(location)? : tactic =>\n  `(tactic| push $cfg:optConfig Not $[$loc]?)\n```\n"
     },
     "b": {
-     "seconds": 5.3,
+     "seconds": 5.6,
      "timed_out": false,
      "variants": [
       {
@@ -2257,7 +2257,7 @@
      "raw_tail": "k : Fin n), 0 < c k\nhM : ∀ (s : ℝ), 0 ≤ s → ∑ k, c k * Real.exp (l k * s) ≤ M\nk : Fin n\nh : ¬l k ≤ 0\n⊢ False\n[grind] Goal diagnostics\n  [facts] Asserted facts\n    [prop] ∀ (k : Fin n), 0 < c k\n    [prop] ∀ (s : ℝ), 0 ≤ s → ∑ k, c k * Real.exp (l k * s) ≤ M\n    [prop] ¬l k ≤ 0\n  [eqc] True propositions\n    [prop] ∀ (s : ℝ), 0 ≤ s → ∑ k, c k * Real.exp (l k * s) ≤ M\n    [prop] ∀ (k : Fin n), 0 < c k\n  [eqc] False propositions\n    [prop] l k ≤ 0\n  [ematch] E-matching patterns\n    [thm] hc: [@LT.lt `[ℝ] `[Real.instLT] `[0] (c #0)]\n    [thm] hc: [c #0]\n    [thm] hM: [@LE.le `[ℝ] `[Real.instLE] `[0] #1]\n    [thm] Set.subset_def: [@LE.le _ _ #1 #0]\n  [cutsat] Assignment satisfying linear constraints\n    [assign] n := 1\n  [linarith] Linarith assignment for `ℝ`\n    [assign] M := 0\n    [assign] l k := 1\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/growth_real_positive_coeffs_b.lean:54:170: error: unsolved goals\nn : ℕ\nc l : Fin n → ℝ\nM : ℝ\nhc : ∀ (k : Fin n), 0 < c k\nhM : ∀ (s : ℝ), 0 ≤ s → ∑ k, c k * Real.exp (l k * s) ≤ M\n⊢ ∀ (k : Fin n), l k ≤ 0\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/growth_real_positive_coeffs_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/growth_real_positive_coeffs_b.lean:61:10: error: linarith failed to find a contradiction\nn : ℕ\nc l : Fin n → ℝ\nM : ℝ\nhc : ∀ (k : Fin n), 0 < c k\nhM : ∀ (s : ℝ), 0 ≤ s → ∑ k, c k * Real.exp (l k * s) ≤ M\nk✝ : Fin n\na✝ : 0 < l k✝\n⊢ False\nfailed\n"
     },
     "s": {
-     "seconds": 28.5,
+     "seconds": 30.0,
      "timed_out": false,
      "variants": [
       {
@@ -2280,6 +2280,426 @@
    },
    "closed_by": [
     "intro k\nby_contra hpos\npush_neg at hpos\nhave hle : ∀ s : ℝ, 0 ≤ s → c k * Real.exp (l k * s) ≤ M := by\n  intro s hs\n  refine le_trans ?_ (hM s hs)\n  exact Finset.single_le_sum (f := fun j => c j * Real.exp (l j * s)) (fun j _ => by have := hc j; positivity) (Finset.mem_univ k)\nset s := (|M| / c k) / l k with hsdef\nhave hs0 : 0 ≤ s := by have := hc k; positivity\nhave h1 := hle s hs0\nhave h2 : l k * s = |M| / c k := by rw [hsdef]; field_simp\nrw [h2] at h1\nhave h3 := Real.add_one_le_exp (|M| / c k)\nhave hck := hc k\nhave h4 : c k * (|M| / c k + 1) ≤ c k * Real.exp (|M| / c k) := mul_le_mul_of_nonneg_left h3 hck.le\nhave h5 : c k * (|M| / c k + 1) = |M| + c k := by field_simp\nhave := le_abs_self M\nlinarith",
+    "apply?"
+   ]
+  },
+  {
+   "name": "residue_weight_identity",
+   "map": "5.11",
+   "stmt": "(L t : ℝ) (hL : L ≠ 0) (ht : t ≠ 0) : L / Real.pi ^ 2 * Real.sin (Real.pi * t) ^ 2 = t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)",
+   "groups": {
+    "h": {
+     "seconds": 5.4,
+     "timed_out": false,
+     "variants": [
+      {
+       "script": "have hp : Real.pi ≠ 0 := Real.pi_ne_zero\nhave h : L * (2 * Real.pi * t / L) / 2 = Real.pi * t := by field_simp\nrw [h]\nfield_simp",
+       "ok": true,
+       "errors": [],
+       "info": []
+      },
+      {
+       "script": "have hp : Real.pi ≠ 0 := Real.pi_ne_zero\nhave h : L * (2 * Real.pi * t / L) / 2 = Real.pi * t := by field_simp\nrw [h]\nfield_simp\nring",
+       "ok": false,
+       "errors": [
+        "No goals to be solved"
+       ],
+       "info": []
+      }
+     ],
+     "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/residue_weight_identity_h.lean:16:2: error: No goals to be solved\n"
+    },
+    "b": {
+     "seconds": 6.3,
+     "timed_out": false,
+     "variants": [
+      {
+       "script": "simp",
+       "ok": false,
+       "errors": [
+        "`simp` made no progress"
+       ],
+       "info": []
+      },
+      {
+       "script": "simp_all",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "norm_num",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "ring",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "ring_nf",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "field_simp",
+       "ok": true,
+       "errors": [],
+       "info": []
+      },
+      {
+       "script": "field_simp\nring",
+       "ok": false,
+       "errors": [
+        "No goals to be solved"
+       ],
+       "info": []
+      },
+      {
+       "script": "linarith",
+       "ok": false,
+       "errors": [
+        "linarith failed to find a contradiction"
+       ],
+       "info": []
+      },
+      {
+       "script": "nlinarith",
+       "ok": false,
+       "errors": [
+        "linarith failed to find a contradiction"
+       ],
+       "info": []
+      },
+      {
+       "script": "positivity",
+       "ok": false,
+       "errors": [
+        "not a positivity goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "omega",
+       "ok": false,
+       "errors": [
+        "omega could not prove the goal:"
+       ],
+       "info": []
+      },
+      {
+       "script": "decide",
+       "ok": false,
+       "errors": [
+        "Expected type must not contain free variables"
+       ],
+       "info": []
+      },
+      {
+       "script": "tauto",
+       "ok": false,
+       "errors": [
+        "Tactic `tauto` failed"
+       ],
+       "info": []
+      },
+      {
+       "script": "aesop",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "bound",
+       "ok": false,
+       "errors": [
+        "Tactic `aesop` failed, failed to prove the goal after exhaustive search."
+       ],
+       "info": []
+      },
+      {
+       "script": "grind",
+       "ok": true,
+       "errors": [],
+       "info": []
+      },
+      {
+       "script": "norm_num [Real.cosh_eq, Complex.cosh, Complex.sinh]",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "intros; positivity",
+       "ok": false,
+       "errors": [
+        "not a positivity goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "intros; nlinarith [sq_nonneg (1:ℝ)]",
+       "ok": false,
+       "errors": [
+        "linarith failed to find a contradiction"
+       ],
+       "info": []
+      }
+     ],
+     "raw_tail": "al.sin (Real.pi * t) ^ 2 =\n    t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/residue_weight_identity_b.lean:49:2: error: Tactic `aesop` failed, failed to prove the goal after exhaustive search.\nInitial goal:\n  L t : ℝ\n  hL : L ≠ 0\n  ht : t ≠ 0\n  ⊢ L / Real.pi ^ 2 * Real.sin (Real.pi * t) ^ 2 =\n      t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)\nRemaining goals after safe rules:\n  L t : ℝ\n  hL : L ≠ 0\n  ht : t ≠ 0\n  ⊢ L / Real.pi ^ 2 * Real.sin (Real.pi * t) ^ 2 =\n      t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/residue_weight_identity_b.lean:54:219: error: unsolved goals\nL t : ℝ\nhL : L ≠ 0\nht : t ≠ 0\n⊢ L / Real.pi ^ 2 * Real.sin (Real.pi * t) ^ 2 =\n    t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/residue_weight_identity_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/residue_weight_identity_b.lean:61:10: error: linarith failed to find a contradiction\ncase h1\nL t : ℝ\nhL : L ≠ 0\nht : t ≠ 0\na✝ :\n  L / Real.pi ^ 2 * Real.sin (Real.pi * t) ^ 2 <\n    t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)\n⊢ False\nfailed\n"
+    },
+    "s": {
+     "seconds": 30.3,
+     "timed_out": false,
+     "variants": [
+      {
+       "script": "exact?",
+       "ok": false,
+       "errors": [
+        "`exact?` could not close the goal. Try `apply?` to see partial suggestions."
+       ],
+       "info": []
+      },
+      {
+       "script": "apply?",
+       "ok": true,
+       "errors": [],
+       "info": []
+      }
+     ],
+     "raw_tail": "/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/residue_weight_identity_s.lean:6:2: error: `exact?` could not close the goal. Try `apply?` to see partial suggestions.\nTry this:\n  [apply] exact residue_weight_identity_s0 L t hL ht\n"
+    }
+   },
+   "closed_by": [
+    "have hp : Real.pi ≠ 0 := Real.pi_ne_zero\nhave h : L * (2 * Real.pi * t / L) / 2 = Real.pi * t := by field_simp\nrw [h]\nfield_simp",
+    "field_simp",
+    "grind",
+    "apply?"
+   ]
+  },
+  {
+   "name": "hadamard_psd",
+   "map": "5.12",
+   "stmt": "(n : ℕ) (A B : Matrix (Fin n) (Fin n) ℝ) (hA : A.PosSemidef) (hB : B.PosSemidef) : (A.hadamard B).PosSemidef",
+   "groups": {
+    "h": {
+     "seconds": 5.4,
+     "timed_out": false,
+     "variants": [
+      {
+       "script": "exact hA.hadamard hB",
+       "ok": true,
+       "errors": [],
+       "info": []
+      },
+      {
+       "script": "exact Matrix.PosSemidef.hadamard hA hB",
+       "ok": true,
+       "errors": [],
+       "info": []
+      }
+     ],
+     "raw_tail": ""
+    },
+    "b": {
+     "seconds": 5.6,
+     "timed_out": false,
+     "variants": [
+      {
+       "script": "simp",
+       "ok": false,
+       "errors": [
+        "`simp` made no progress"
+       ],
+       "info": []
+      },
+      {
+       "script": "simp_all",
+       "ok": false,
+       "errors": [
+        "simp_all made no progress"
+       ],
+       "info": []
+      },
+      {
+       "script": "norm_num",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "ring",
+       "ok": false,
+       "errors": [
+        "`ring_nf` made no progress on the goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "ring_nf",
+       "ok": false,
+       "errors": [
+        "`ring_nf` made no progress on the goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "field_simp",
+       "ok": false,
+       "errors": [
+        "`field_simp` made no progress on the goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "field_simp\nring",
+       "ok": false,
+       "errors": [
+        "`field_simp` made no progress on the goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "linarith",
+       "ok": false,
+       "errors": [
+        "linarith failed to find a contradiction"
+       ],
+       "info": []
+      },
+      {
+       "script": "nlinarith",
+       "ok": false,
+       "errors": [
+        "linarith failed to find a contradiction"
+       ],
+       "info": []
+      },
+      {
+       "script": "positivity",
+       "ok": false,
+       "errors": [
+        "not a positivity goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "omega",
+       "ok": false,
+       "errors": [
+        "omega could not prove the goal:"
+       ],
+       "info": []
+      },
+      {
+       "script": "decide",
+       "ok": false,
+       "errors": [
+        "Expected type must not contain free variables"
+       ],
+       "info": []
+      },
+      {
+       "script": "tauto",
+       "ok": false,
+       "errors": [
+        "Tactic `tauto` failed"
+       ],
+       "info": []
+      },
+      {
+       "script": "aesop",
+       "ok": false,
+       "errors": [
+        "Tactic `aesop` failed, made no progress"
+       ],
+       "info": []
+      },
+      {
+       "script": "bound",
+       "ok": false,
+       "errors": [
+        "Tactic `aesop` failed, failed to prove the goal after exhaustive search."
+       ],
+       "info": []
+      },
+      {
+       "script": "grind",
+       "ok": false,
+       "errors": [
+        "`grind` failed"
+       ],
+       "info": []
+      },
+      {
+       "script": "norm_num [Real.cosh_eq, Complex.cosh, Complex.sinh]",
+       "ok": false,
+       "errors": [
+        "unsolved goals"
+       ],
+       "info": []
+      },
+      {
+       "script": "intros; positivity",
+       "ok": false,
+       "errors": [
+        "not a positivity goal"
+       ],
+       "info": []
+      },
+      {
+       "script": "intros; nlinarith [sq_nonneg (1:ℝ)]",
+       "ok": false,
+       "errors": [
+        "linarith failed to find a contradiction"
+       ],
+       "info": []
+      }
+     ],
+     "raw_tail": " B).PosSemidef\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/hadamard_psd_b.lean:49:2: error: Tactic `aesop` failed, failed to prove the goal after exhaustive search.\nInitial goal:\n  n : ℕ\n  A B : Matrix (Fin n) (Fin n) ℝ\n  hA : A.PosSemidef\n  hB : B.PosSemidef\n  ⊢ (A.hadamard B).PosSemidef\nRemaining goals after safe rules:\n  n : ℕ\n  A B : Matrix (Fin n) (Fin n) ℝ\n  hA : A.PosSemidef\n  hB : B.PosSemidef\n  ⊢ (A.hadamard B).PosSemidef\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/hadamard_psd_b.lean:52:2: error: `grind` failed\ncase grind\nn : ℕ\nA B : Matrix (Fin n) (Fin n) ℝ\nhA : A.PosSemidef\nhB : B.PosSemidef\nh : ¬(A.hadamard B).PosSemidef\n⊢ False\n[grind] Goal diagnostics\n  [facts] Asserted facts\n    [prop] A.PosSemidef\n    [prop] B.PosSemidef\n    [prop] ¬(A.hadamard B).PosSemidef\n  [eqc] True propositions\n    [prop] A.PosSemidef\n    [prop] B.PosSemidef\n  [eqc] False propositions\n    [prop] (A.hadamard B).PosSemidef\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/hadamard_psd_b.lean:54:137: error: unsolved goals\nn : ℕ\nA B : Matrix (Fin n) (Fin n) ℝ\nhA : A.PosSemidef\nhB : B.PosSemidef\n⊢ (A.hadamard B).PosSemidef\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/hadamard_psd_b.lean:58:10: error: not a positivity goal\n/home/runner/work/GPPDiscovery/GPPDiscovery/lean_sweep/gen/hadamard_psd_b.lean:61:10: error: linarith failed to find a contradiction\nn : ℕ\nA B : Matrix (Fin n) (Fin n) ℝ\nhA : A.PosSemidef\nhB : B.PosSemidef\n⊢ False\nfailed\n"
+    },
+    "s": {
+     "seconds": 28.8,
+     "timed_out": false,
+     "variants": [
+      {
+       "script": "exact?",
+       "ok": true,
+       "errors": [],
+       "info": []
+      },
+      {
+       "script": "apply?",
+       "ok": true,
+       "errors": [],
+       "info": []
+      }
+     ],
+     "raw_tail": "Try this:\n  [apply] exact Matrix.PosSemidef.hadamard hA hB\nTry this:\n  [apply] exact hadamard_psd_s0 n A B hA hB\n"
+    }
+   },
+   "closed_by": [
+    "exact hA.hadamard hB",
+    "exact Matrix.PosSemidef.hadamard hA hB",
+    "exact?",
     "apply?"
    ]
   }

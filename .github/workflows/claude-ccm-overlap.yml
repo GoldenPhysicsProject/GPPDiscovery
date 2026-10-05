@@ -13,8 +13,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        lam: ['2.5', '3', 'sqrt(12)']
-        N: [8, 12, 16, 20, 24, 28, 32, 40]
+        lam: ['2', '2.5', '3', '3.5', '4']
+        N: [24, 32, 40, 48, 56]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

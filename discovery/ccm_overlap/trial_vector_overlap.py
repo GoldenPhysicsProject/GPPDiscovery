@@ -121,6 +121,7 @@ def analyse(lamstr, N, dps_in, skip_trial=False):
     # --- trial vector
     cs, tinfo = trial_vector(lam, N, dps)
     res["trial"] = tinfo
+    res["trial"]["l2_c"] = mp.nstr(mp.sqrt(sum(abs(c) ** 2 for c in cs)), 12)
     s_k = sum(cs)
     res["eta_dot_k_raw"] = mp.nstr(abs(s_k), 8)
     k = [c / s_k for c in cs]                                                   # eta^T k = 1

@@ -38,10 +38,10 @@ for lam, ds in bylam.items():
     out.append("- lam=%s: %s" % (lam, "; ".join("N=%d: ov1=%.3e kTk=%.4f" % s for s in seq)))
 
 out += ["", "## Scale-free reading (eta-normalisation is ill-posed: eta.k_raw -> 0 as N grows)", "",
-        "kTk_sf = kTk*(eta.k_raw)^2/max|c|^2 ; cos_r <= |ov_r|*|eta.k_raw|/max|c| (upper bound on the cosine with mode r).", "",
+        "kTk_sf = kTk*(eta.k_raw)^2/||c||^2 (l2 when recorded, else max|c|) ; cos_r <= |ov_r|*|eta.k_raw|/max|c| (upper bound on the cosine with mode r).", "",
         "| lambda | N | kTk_sf | M_C | kTk_sf*M_C | cos(e2) bound | cos(e4) bound | lambda_even1 |", "|---|---|---|---|---|---|---|---|"]
 for d in sorted(rows, key=lambda d: (lamval(d["lam"]), d["N"])):
-    s_ = fl(d.get("eta_dot_k_raw")); mx_ = fl(d["trial"]["max_abs_c"])
+    s_ = fl(d.get("eta_dot_k_raw")); mx_ = fl(d["trial"].get("l2_c") or d["trial"]["max_abs_c"])
     ov = [fl(x) for x in d.get("overlaps_abs", [])]; le = [fl(x) for x in d.get("low_eigs", [])]
     evi = [i for i in range(1, len(ov)) if ov[i] > 1e-12]
     ksf = fl(d.get("kTk")) * s_ * s_ / mx_ ** 2

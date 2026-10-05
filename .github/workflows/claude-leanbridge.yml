@@ -1,0 +1,43 @@
+name: claude-leanbridge
+# Compile lean_sweep/Bridge.lean at pinned Mathlib and record #min_imports.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['lean_sweep/Bridge.lean', '.github/workflows/claude-leanbridge.yml']
+permissions:
+  contents: write
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        working-directory: lean_sweep
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl -sSfL https://github.com/leanprover/elan/releases/latest/download/elan-x86_64-unknown-linux-gnu.tar.gz | tar xz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+      - uses: actions/cache@v4
+        with:
+          path: ~/.elan/toolchains
+          key: lean-toolchain-${{ hashFiles('lean_sweep/lean-toolchain') }}
+      - uses: actions/cache@v4
+        with:
+          path: lean_sweep/.lake
+          key: sweep-lake-${{ hashFiles('lean_sweep/lake-manifest.json', 'lean_sweep/lean-toolchain') }}
+      - run: lake exe cache get
+      - name: Compile Bridge.lean
+        run: |
+          mkdir -p results
+          lake env lean Bridge.lean 2>&1 | tee results/bridge_build.txt || true
+      - if: always()
+        working-directory: .
+        run: |
+          git config user.name "gpp-bot"
+          git config user.email "dtoupin@goldenphysics.org"
+          git add lean_sweep/results
+          git commit -m "lean_sweep: bridge build $(date -u +%FT%TZ)" || echo "no change"
+          git pull --rebase origin main && git push

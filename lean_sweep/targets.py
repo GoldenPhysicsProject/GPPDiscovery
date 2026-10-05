@@ -153,6 +153,26 @@ TARGETS = [
              "have := le_abs_self M\n"
              "linarith",
          ]),
+
+    dict(name="residue_weight_identity", map="5.11", stmt=
+         "(L t : ℝ) (hL : L ≠ 0) (ht : t ≠ 0) : "
+         "L / Real.pi ^ 2 * Real.sin (Real.pi * t) ^ 2 = "
+         "t ^ 2 * (L * (Real.sin (L * (2 * Real.pi * t / L) / 2) / (L * (2 * Real.pi * t / L) / 2)) ^ 2)",
+         tries=[
+             "have hp : Real.pi ≠ 0 := Real.pi_ne_zero\n"
+             "have h : L * (2 * Real.pi * t / L) / 2 = Real.pi * t := by field_simp\n"
+             "rw [h]\n"
+             "field_simp",
+             "have hp : Real.pi ≠ 0 := Real.pi_ne_zero\n"
+             "have h : L * (2 * Real.pi * t / L) / 2 = Real.pi * t := by field_simp\n"
+             "rw [h]\n"
+             "field_simp\n"
+             "ring",
+         ]),
+
+    dict(name="hadamard_psd", map="5.12", stmt=
+         "(n : ℕ) (A B : Matrix (Fin n) (Fin n) ℝ) (hA : A.PosSemidef) (hB : B.PosSemidef) : (A.hadamard B).PosSemidef",
+         tries=["exact hA.hadamard hB", "exact Matrix.PosSemidef.hadamard hA hB"]),
 ]
 
 # Generic battery: every target is also tried with each of these.

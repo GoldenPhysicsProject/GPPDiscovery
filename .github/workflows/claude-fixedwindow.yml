@@ -3,7 +3,7 @@ name: claude-fixedwindow
 on:
   workflow_dispatch:
   push:
-    paths: ['discovery/fixed_window/fixed_window.py', '.github/workflows/claude-fixedwindow.yml']
+    paths: ['discovery/fixed_window/fixed_window.py', 'discovery/fixed_window/two_box.py', '.github/workflows/claude-fixedwindow.yml']
 permissions:
   contents: write
 jobs:
@@ -17,8 +17,7 @@ jobs:
       - run: pip install numpy numba mpmath
       - working-directory: discovery/fixed_window
         run: |
-          python fixed_window.py 2e7
-          FW_OUT=fixed_window_small_ell.json python fixed_window.py 2e7 0.01,0.02,0.05,0.1,0.2,0.6931471805599453
+          python two_box.py 400
       - if: always()
         run: |
           git config user.name "gpp-bot"

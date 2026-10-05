@@ -1,0 +1,22 @@
+{
+ "q.q": "0",
+ "q(z).q(w)": "-2*(z - z2)*(zb - zb2)",
+ "solutions": [
+  {
+   "w5": "M/(2*(z5*zb5 + 1))",
+   "w6": "M*z5*zb5/(2*(z5*zb5 + 1))",
+   "z6": "-1/zb5",
+   "zb6": "-1/z5"
+  }
+ ],
+ "cone_measure_factor_c0 (d^4l delta(l^2) = c0 dw dz dzb)": "w**2/Abs(w)",
+ "detJ": "-M**2*z5*zb5",
+ "rho(z5,zb5) up to (2pi) conventions": "1/(4*(z5*zb5 + 1)**2)",
+ "rho in (a,b) incl. Jacobian": "1/(16*cosh(a/2 + b/2)**2)",
+ "depends on d (stabilizer)?": "False",
+ "rho_x / logistic": "1/8",
+ "shift under chiral z->e^th z": "-th",
+ "shift under diagonal z,zb->e^th": "-2*th",
+ "shift under anti-diagonal": "0",
+ "fourier(logistic)=P=kappa_2pi max err": 6.794014083461937e-17
+}

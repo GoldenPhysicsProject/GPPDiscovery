@@ -9,12 +9,12 @@ permissions:
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 340
     strategy:
       fail-fast: false
       matrix:
-        lam: ['2', '2.5', '3', '3.5', '4']
-        N: [24, 32, 40, 48, 56]
+        lam: ['3.5', '4', '5']
+        N: [64, 72, 80]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

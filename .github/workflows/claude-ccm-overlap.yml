@@ -1,0 +1,45 @@
+name: claude-ccm-overlap
+# Claude chat seat: CCM trial-vector overlap grid (lambda x N), mpmath, then aggregate.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['discovery/ccm_overlap/*.py', '.github/workflows/claude-ccm-overlap.yml']
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        lam: ['2.5', '3', 'sqrt(12)']
+        N: [8, 12, 16, 20]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install mpmath numpy
+      - working-directory: discovery/ccm_overlap
+        run: python trial_vector_overlap.py --lam "${{ matrix.lam }}" --N ${{ matrix.N }} --out results/tv_${{ strategy.job-index }}.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tv-${{ strategy.job-index }}
+          path: discovery/ccm_overlap/results/
+  aggregate:
+    needs: run
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - uses: actions/download-artifact@v4
+        with: {path: discovery/ccm_overlap/results, pattern: 'tv-*', merge-multiple: true}
+      - run: python discovery/ccm_overlap/aggregate.py
+      - run: |
+          git config user.name "gpp-bot"
+          git config user.email "dtoupin@goldenphysics.org"
+          git add discovery/ccm_overlap/results discovery/ccm_overlap/TRIAL_VECTOR_OVERLAP_RESULTS.md
+          git commit -m "ccm_overlap: results $(date -u +%FT%TZ)" || echo "no change"
+          git pull --rebase origin main && git push

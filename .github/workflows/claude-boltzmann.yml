@@ -1,0 +1,26 @@
+name: claude-boltzmann
+# Claude chat seat: prime gas as a Boltzmann gas (collision invariants; collision strength c* in the odd Weil form).
+on:
+  workflow_dispatch:
+  push:
+    paths: ['discovery/odd_weil/prime_boltzmann.py', '.github/workflows/claude-boltzmann.yml']
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install numpy scipy mpmath
+      - working-directory: discovery/odd_weil
+        run: mkdir -p results && python prime_boltzmann.py results/prime_boltzmann.json
+      - if: always()
+        run: |
+          git config user.name "gpp-bot"
+          git config user.email "dtoupin@goldenphysics.org"
+          git add discovery/odd_weil/results
+          git commit -m "odd_weil: prime Boltzmann results $(date -u +%FT%TZ)" || echo "no change"
+          git pull --rebase origin main && git push

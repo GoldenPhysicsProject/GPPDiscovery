@@ -1,0 +1,11 @@
+{
+ "P^{AA'} matrix": "Matrix([[M/2, 0], [0, M/2]])",
+ "det P": "M**2/4",
+ "P.lamt5 vs lam6 (ratio components)": "Matrix([[M*sqrt(zb5)/(2*sqrt(z5))], [M*sqrt(zb5)/(2*sqrt(z5))]])",
+ "P.lamt6 vs lam5 (ratio components)": "Matrix([[-M*sqrt(zb5)/(2*sqrt(z5))], [-M*sqrt(zb5)/(2*sqrt(z5))]])",
+ "L+G=1": "True",
+ "L^2=L, G^2=G, LG=0, GL=0": "[True, True, True, True]",
+ "omega-part of L(Z) for pi=lamt5, ratio to lam6": "Matrix([[I*M*c*sqrt(zb5)/(2*sqrt(z5))], [I*M*c*sqrt(zb5)/(2*sqrt(z5))]])",
+ "P invariant under flat direction": "True",
+ "d/dt lam5 at t=0 (generator on unprimed spinor)": "Matrix([[0], [sqrt(2)*sqrt(M)*z5/(2*sqrt(z5*zb5 + 1))]])"
+}

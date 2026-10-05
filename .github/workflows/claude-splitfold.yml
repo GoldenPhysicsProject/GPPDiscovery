@@ -1,0 +1,26 @@
+name: claude-splitfold
+# Claude chat seat: split (Q(sqrt5), Gamma_R^2) vs folded (Q(i), Gamma_C) odd Weil positivity.
+on:
+  workflow_dispatch:
+  push:
+    paths: ['discovery/odd_weil/split_vs_folded.py', '.github/workflows/claude-splitfold.yml']
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.11'}
+      - run: pip install numpy scipy mpmath
+      - working-directory: discovery/odd_weil
+        run: mkdir -p results && python split_vs_folded.py results/split_vs_folded.json 20
+      - if: always()
+        run: |
+          git config user.name "gpp-bot"
+          git config user.email "dtoupin@goldenphysics.org"
+          git add discovery/odd_weil/results
+          git commit -m "odd_weil: split vs folded results $(date -u +%FT%TZ)" || echo "no change"
+          git pull --rebase origin main && git push

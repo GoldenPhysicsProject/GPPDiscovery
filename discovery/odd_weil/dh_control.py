@@ -29,6 +29,10 @@ def dirichlet_coeffs(kind, M):
         tab = {0: 0.0, 1: 1.0, 2: kap, 3: -kap, 4: -1.0}
         for n in range(1, M + 1):
             a[n] = tab[n % 5]
+    elif kind == "chi4":  # odd character mod 4 (Q(i)), Gamma((s+1)/2)
+        tab = {0: 0.0, 1: 1.0, 2: 0.0, 3: -1.0}
+        for n in range(1, M + 1):
+            a[n] = tab[n % 4]
     elif kind == "chi5real":  # real character mod 5 (Legendre), has Euler product
         tab = {0: 0.0, 1: 1.0, 2: -1.0, 3: -1.0, 4: 1.0}
         for n in range(1, M + 1):
@@ -75,7 +79,7 @@ def Gsym_matrix(N, L, u):
 
 def build(kind, lam, N, nq=1200):
     L = np.log(lam)
-    q, kinf = {"zeta": (1.0, 0.0), "dh": (5.0, 1.0), "chi5real": (5.0, 0.0)}[kind]
+    q, kinf = {"zeta": (1.0, 0.0), "dh": (5.0, 1.0), "chi5real": (5.0, 0.0), "chi4": (4.0, 1.0)}[kind]
     G0 = L * np.eye(N)
     # Archimedean, u-space Gauss-Legendre on [0, 2L]
     t, w = leggauss(nq)

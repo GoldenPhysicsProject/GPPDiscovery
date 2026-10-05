@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: {python-version: '3.11'}
-      - run: pip install mpmath numpy
+      - run: pip install mpmath numpy scipy
       - working-directory: discovery/ccm_overlap
         run: python trial_vector_overlap.py --lam "${{ matrix.lam }}" --N ${{ matrix.N }} --out results/tv_${{ strategy.job-index }}.json
       - uses: actions/upload-artifact@v4
@@ -36,7 +36,7 @@ jobs:
         with: {python-version: '3.11'}
       - uses: actions/download-artifact@v4
         with: {path: discovery/ccm_overlap/results, pattern: 'tv-*', merge-multiple: true}
-      - run: python discovery/ccm_overlap/aggregate.py
+      - run: mkdir -p discovery/ccm_overlap/results && python discovery/ccm_overlap/aggregate.py
       - run: |
           git config user.name "gpp-bot"
           git config user.email "dtoupin@goldenphysics.org"

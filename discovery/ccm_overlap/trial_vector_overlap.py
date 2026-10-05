@@ -16,7 +16,7 @@ ZS = [mp.mpc(1, 1), mp.mpc("0.3", -2), mp.mpc(5, "0.1")]
 
 
 def parse_lam(s):
-    return mp.sqrt(mp.mpf(s[4:-1])) if s.startswith("sqrt(") else mp.mpf(s)
+    return mp.sqrt(mp.mpf(s[5:-1])) if s.startswith("sqrt(") else mp.mpf(s)
 
 
 def trial_vector(lam, N, dps, M_deg=7):

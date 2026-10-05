@@ -107,7 +107,8 @@ def main():
     res["dh_coeff_growth_dyadic"] = grow
     res["t_coeffs"] = time.time() - t0
 
-    for ell in [math.log(2), 1.0, 2.0]:
+    ells = [float(e) for e in sys.argv[2].split(",")] if len(sys.argv) > 2 else [math.log(2), 1.0, 2.0]
+    for ell in ells:
         X = int(N / math.exp(ell)) - 2
         xs = np.arange(2, X + 1, dtype=np.float64)
         A = (8 / ell) * (math.cosh(ell / 2) - 1)
@@ -145,13 +146,19 @@ def main():
         out["dh_actual_rms"] = float(np.sqrt(np.mean(sdh ** 2)))
         out["dh_resid_rms"] = float(np.sqrt(np.mean(resid ** 2)))
         out["dh_corr_actual_pred"] = float(np.corrcoef(sdh, pred)[0, 1])
+        top = grid >= X / 100
+        out["dh_top2dec_regress_coef"] = float(np.dot(sdh[top], pred[top]) / np.dot(pred[top], pred[top]))
+        out["dh_top2dec_corr"] = float(np.corrcoef(sdh[top], pred[top])[0, 1])
+        out["dh_top2dec_rms_actual_pred_resid"] = [float(np.sqrt(np.mean(sdh[top] ** 2))), float(np.sqrt(np.mean(pred[top] ** 2))), float(np.sqrt(np.mean(resid[top] ** 2)))]
+        sz = window(lam, ell, grid) - A * np.sqrt(grid); sc = window(bl5, ell, grid)
+        out["zeta_chi5_top2dec_rms"] = [float(np.sqrt(np.mean(sz[top] ** 2))), float(np.sqrt(np.mean(sc[top] ** 2)))]
         # x at which first off-line term reaches amplitude 1
         a0, e0 = amps[0]
         out["dh_x_where_offline_term_reaches_1"] = float((1 / (2 * a0)) ** (1 / e0))
         res["ell=%.4f" % ell] = out
         print(json.dumps(out)[:1500], flush=True)
     res["t_total"] = time.time() - t0
-    json.dump(res, open(os.path.join(OUT, "fixed_window.json"), "w"), indent=1)
+    json.dump(res, open(os.path.join(OUT, os.environ.get("FW_OUT", "fixed_window.json")), "w"), indent=1)
 
 
 if __name__ == "__main__":

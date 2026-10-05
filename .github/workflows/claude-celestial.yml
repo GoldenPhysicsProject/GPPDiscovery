@@ -16,8 +16,8 @@ jobs:
       - run: pip install mpmath sympy
       - run: python discovery/celestial_loops/check_sewing.py discovery/celestial_loops/results/sewing.json
       - run: python discovery/celestial_loops/split_signature_cut.py discovery/celestial_loops/results/split_signature.json
-      - run: python discovery/celestial_loops/googly_cut.py discovery/celestial_loops/results/googly_cut.json
         if: always()
+      - run: python discovery/celestial_loops/googly_cut.py discovery/celestial_loops/results/googly_cut.json
         if: always()
       - if: always()
         run: |

@@ -1,0 +1,26 @@
+theta=0.000 lam= 2 N= 14  minQ= 1.512e-09  minQcomp=-5.966e-01  minA= 2.737e-05  minAcomp=-4.375e-01  ||Corr||=0.745
+theta=0.000 lam= 3 N= 21  minQ= 3.134e-13  minQcomp=-7.933e-01  minA= 4.188e-13  minAcomp=-5.287e-01  ||Corr||=1.232
+theta=0.000 lam= 4 N= 27  minQ= 3.168e-13  minQcomp=-8.003e-01  minA= 4.295e-13  minAcomp=-7.098e-01  ||Corr||=1.442
+theta=0.000 lam= 6 N= 35  minQ= 3.472e-13  minQcomp=-8.923e-01  minA= 4.285e-13  minAcomp=-8.910e-01  ||Corr||=1.629
+theta=0.000 lam= 8 N= 40  minQ= 3.746e-13  minQcomp=-9.540e-01  minA= 3.765e-13  minAcomp=-9.494e-01  ||Corr||=1.763
+theta=0.100 lam= 2 N= 14  minQ=-1.261e-03  minQcomp=-5.986e-01  minA=-6.786e-04  minAcomp=-4.328e-01  ||Corr||=0.748
+theta=0.100 lam= 3 N= 21  minQ=-3.344e-02  minQcomp=-7.989e-01  minA=-3.316e-02  minAcomp=-5.271e-01  ||Corr||=1.238
+theta=0.100 lam= 4 N= 27  minQ=-8.117e-02  minQcomp=-8.057e-01  minA=-8.028e-02  minAcomp=-7.112e-01  ||Corr||=1.449
+theta=0.100 lam= 6 N= 35  minQ=-1.401e-01  minQcomp=-8.946e-01  minA=-1.398e-01  minAcomp=-8.930e-01  ||Corr||=1.639
+theta=0.100 lam= 8 N= 40  minQ=-2.141e-01  minQcomp=-9.575e-01  minA=-2.139e-01  minAcomp=-9.513e-01  ||Corr||=1.776
+theta=0.200 lam= 2 N= 14  minQ=-5.607e-03  minQcomp=-6.048e-01  minA=-3.104e-03  minAcomp=-4.189e-01  ||Corr||=0.757
+theta=0.200 lam= 3 N= 21  minQ=-1.385e-01  minQcomp=-8.161e-01  minA=-1.372e-01  minAcomp=-5.232e-01  ||Corr||=1.256
+theta=0.200 lam= 4 N= 27  minQ=-3.336e-01  minQcomp=-8.229e-01  minA=-3.299e-01  minAcomp=-7.163e-01  ||Corr||=1.470
+theta=0.200 lam= 6 N= 35  minQ=-5.820e-01  minQcomp=-9.030e-01  minA=-5.798e-01  minAcomp=-9.006e-01  ||Corr||=1.673
+theta=0.200 lam= 8 N= 40  minQ=-8.961e-01  minQcomp=-1.107e+00  minA=-8.949e-01  minAcomp=-1.096e+00  ||Corr||=1.817
+theta=0.300 lam= 2 N= 14  minQ=-1.432e-02  minQcomp=-6.150e-01  minA=-8.612e-03  minAcomp=-3.960e-01  ||Corr||=0.771
+theta=0.300 lam= 3 N= 21  minQ=-3.178e-01  minQcomp=-8.460e-01  minA=-3.149e-01  minAcomp=-5.194e-01  ||Corr||=1.286
+theta=0.300 lam= 4 N= 27  minQ=-7.719e-01  minQcomp=-8.558e-01  minA=-7.636e-01  minAcomp=-7.310e-01  ||Corr||=1.505
+theta=0.300 lam= 6 N= 35  minQ=-1.372e+00  minQcomp=-1.477e+00  minA=-1.366e+00  minAcomp=-1.473e+00  ||Corr||=1.729
+theta=0.300 lam= 8 N= 40  minQ=-2.129e+00  minQcomp=-2.255e+00  minA=-2.125e+00  minAcomp=-2.251e+00  ||Corr||=1.887
+theta=0.375 lam= 2 N= 14  minQ=-2.576e-02  minQcomp=-6.256e-01  minA=-1.738e-02  minAcomp=-3.732e-01  ||Corr||=0.786
+theta=0.375 lam= 3 N= 21  minQ=-5.047e-01  minQcomp=-8.778e-01  minA=-5.005e-01  minAcomp=-5.182e-01  ||Corr||=1.318
+theta=0.375 lam= 4 N= 27  minQ=-1.238e+00  minQcomp=-8.953e-01  minA=-1.225e+00  minAcomp=-8.527e-01  ||Corr||=1.541
+theta=0.375 lam= 6 N= 35  minQ=-2.238e+00  minQcomp=-2.285e+00  minA=-2.225e+00  minAcomp=-2.275e+00  ||Corr||=1.788
+theta=0.375 lam= 8 N= 40  minQ=-3.503e+00  minQcomp=-3.564e+00  minA=-3.496e+00  minAcomp=-3.556e+00  ||Corr||=1.961
+done

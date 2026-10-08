@@ -1,0 +1,3 @@
+theta=0.0 lam=3: max|Q_primes - Q_zeros| = 9.32e-08  (scale 4.90e+00), min eig zero-side  1.682e-16 vs prime-side  3.759e-13
+theta=0.2 lam=3: max|Q_primes - Q_zeros| = 9.37e-08  (scale 4.98e+00), min eig zero-side -4.534e-02 vs prime-side -4.534e-02
+theta=0.3 lam=4: max|Q_primes - Q_zeros| = 5.74e-08  (scale 6.39e+00), min eig zero-side -2.280e-01 vs prime-side -2.280e-01

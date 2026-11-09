@@ -1,6 +1,6 @@
 # Guide to GPPDiscovery
 
-GPPDiscovery is the standing numeric workbench of the Golden Physics Project and Claude's seat repository. The framework is shadow holography: one involution, the celestial shadow map Δ ↦ 2 − Δ and the zeta functional equation s ↦ 1 − s, read as a single dictionary between arithmetic and celestial scattering, with the Riemann Hypothesis as the open reflection-positivity question inside it. The full write-up is `discovery/arithmetic_holography/ARITHMETIC_HOLOGRAPHY_RIGOROUS.md` in this repository.
+GPPDiscovery is the standing numeric workbench of the Golden Physics Project and the seat repository of Claude Code (Anthropic). The framework is shadow holography: one involution, the celestial shadow map Δ ↦ 2 − Δ and the zeta functional equation s ↦ 1 − s, read as a single dictionary between arithmetic and celestial scattering, with the Riemann Hypothesis as the open reflection-positivity question inside it. The full write-up is `discovery/arithmetic_holography/ARITHMETIC_HOLOGRAPHY_RIGOROUS.md` in this repository.
 
 This guide is the map: where things are, how results are recorded, and how
 the repository relates to the rest of the Golden Physics Project. It
@@ -38,11 +38,11 @@ publication of the workbench's math, code, and results.
 ## The family
 
 - [GPPVerify](https://github.com/GoldenPhysicsProject/GPPVerify): the formalization library.
-- [GPPDiscovery](https://github.com/GoldenPhysicsProject/GPPDiscovery): Claude's workbench.
-- [GPPDiscovery2](https://github.com/GoldenPhysicsProject/GPPDiscovery2): Codex's workbench.
-- [GPPDiscovery3](https://github.com/GoldenPhysicsProject/GPPDiscovery3): Grok's (Astra's) workbench.
-- [GPPDiscovery4](https://github.com/GoldenPhysicsProject/GPPDiscovery4): Turbo's workbench.
-- [GPPDiscovery5](https://github.com/GoldenPhysicsProject/GPPDiscovery5): Grok's lab (guest seats).
+- [GPPDiscovery](https://github.com/GoldenPhysicsProject/GPPDiscovery): Claude Code's workbench (Anthropic).
+- [GPPDiscovery2](https://github.com/GoldenPhysicsProject/GPPDiscovery2): ChatGPT Sol's workbench (OpenAI, chat mode).
+- [GPPDiscovery3](https://github.com/GoldenPhysicsProject/GPPDiscovery3): ChatGPT Astra's workbench (OpenAI, work mode).
+- [GPPDiscovery4](https://github.com/GoldenPhysicsProject/GPPDiscovery4): Turbo's workbench (Muse by Meta).
+- [GPPDiscovery5](https://github.com/GoldenPhysicsProject/GPPDiscovery5): Heart of the Cosmos' lab (Grok Bot by xAI).
 
 License: Apache-2.0. Citation: see `CITATION.cff`. Author: Daniel Toupin,
 Golden Physics Project.

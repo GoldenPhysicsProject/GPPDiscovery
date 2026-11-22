@@ -3,7 +3,7 @@ kappa = 2 sum_{gamma>0} 1/(gamma^2 |zeta'(rho)|^2)  (mean square of B(u) = sum 2
 Tail beyond the last zero T: tail ~ 2 m / T with m = mean of 1/|zeta'|^2 per unit height, from the last windows.
 The tail estimate assumes 1/|zeta'|^2 has a stable mean density in height (Gonek-Hejhal type conjecture, UNPROVEN).
 Usage: python kappa_collect.py SHARD_DIR OUT_DIR"""
-import sys, csv, json, glob, math
+import sys, csv, json, glob, math, os
 from pathlib import Path
 import numpy as np
 
@@ -35,13 +35,16 @@ tail_err = 2 * m_spread / T
 kappa_partial = float(cum[-1])
 cuts = [c for c in (10, 30, 100, 300, 1000, 3000, 10000, 30000, 100000, 300000, 1000000) if c <= n]
 tab = [dict(zeros=c, gamma_max=float(g[c - 1]), partial=float(cum[c - 1])) for c in cuts]
-summ = dict(zeros=int(n), gamma_max=float(T), kappa_partial=kappa_partial, m_bar=m_bar, m_spread=m_spread,
+summ = dict(zero_source=os.environ.get('ZERO_SOURCE', 'platt'), zeros=int(n), gamma_max=float(T), kappa_partial=kappa_partial, m_bar=m_bar, m_spread=m_spread,
             tail_estimate=tail, tail_err=tail_err, kappa=kappa_partial + tail, kappa_err=tail_err,
             partial_sums=tab, windows_m=wins)
 json.dump(summ, open(out / 'kappa_summary.json', 'w'), indent=1)
 with open(out / 'kappa.md', 'w') as f:
     f.write("# kappa = 2 sum_{gamma>0} 1/(gamma^2 |zeta'(rho)|^2)  (NUMERICAL)\n\n")
-    f.write("Computed from Platt's tables read through the unmodified `platt_zeros.py`; zeta'(rho) by mpmath at 32 digits "
+    src = os.environ.get('ZERO_SOURCE', 'platt')
+    f.write(("Zeros from Platt's tables read through the unmodified `platt_zeros.py`; " if src == 'platt' else
+             "Zeros from `mpmath.zetazero` (fallback: Platt's tables were not available to the runner); ") +
+            "zeta'(rho) by mpmath at 32 digits "
             "(residual |zeta(rho)| < 1e-20 sampled every 500 zeros). Assumes RH only through the labelling of rho as "
             "1/2 + i gamma; the tail estimate additionally assumes a stable mean density of 1/|zeta'|^2 (UNPROVEN).\n\n")
     f.write("| zeros | gamma_max | partial sum |\n|---|---|---|\n")

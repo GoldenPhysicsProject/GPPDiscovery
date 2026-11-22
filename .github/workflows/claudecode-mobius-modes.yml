@@ -9,6 +9,8 @@ on:
       nmax:   { description: "sieve limit N", default: "100000000" }
       nzeros: { description: "zeros for kappa (multiple of 50)", default: "100000" }
       ymax:   { description: "Y for F(y)", default: "10000000" }
+      source: { description: "zero source for kappa: platt (tables from Drive) or mpmath (mpmath.zetazero fallback)", default: "platt" }
+      do_direct: { description: "run the direct Moebius side", default: "true" }
 permissions:
   contents: write
 env:
@@ -16,6 +18,7 @@ env:
   D: discovery/mobius_modes
 jobs:
   direct:
+    if: ${{ inputs.do_direct == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -39,6 +42,7 @@ jobs:
         with: { name: direct, path: out/mobius_modes }
 
   data:
+    if: ${{ inputs.source == 'platt' }}
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -72,6 +76,7 @@ jobs:
 
   kappa:
     needs: data
+    if: ${{ always() && (inputs.source == 'mpmath' || needs.data.result == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -84,6 +89,7 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install numpy mpmath
       - uses: actions/cache/restore@v4
+        if: ${{ inputs.source == 'platt' }}
         with:
           path: zdata
           key: platt-zeros-v1
@@ -93,12 +99,13 @@ jobs:
           SIZE=$(( ${{ inputs.nzeros }} / 50 ))
           START=$(( ${{ matrix.shard }} * SIZE + 1 ))
           mkdir -p out/kappa
-          PYTHONPATH=$D python $D/kappa_shard.py zdata $START $SIZE out/kappa/kappa_${{ matrix.shard }}.csv
+          SRC=zdata; [ "${{ inputs.source }}" = "mpmath" ] && SRC=mpmath
+          PYTHONPATH=$D python $D/kappa_shard.py $SRC $START $SIZE out/kappa/kappa_${{ matrix.shard }}.csv
       - uses: actions/upload-artifact@v4
         with: { name: "kappa-${{ matrix.shard }}", path: out/kappa }
 
   analysis:
-    needs: [direct, kappa]
+    needs: [kappa]
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
@@ -108,9 +115,13 @@ jobs:
       - run: pip install numpy mpmath
       - uses: actions/download-artifact@v4
         with: { pattern: "kappa-*", merge-multiple: true, path: shards }
-      - uses: actions/download-artifact@v4
-        with: { name: direct, path: direct }
+      - name: direct summary from the committed results
+        run: |
+          mkdir -p direct
+          cp results/mobius_modes/direct_summary.json direct/
       - name: kappa, comparison, reconstruction
+        env:
+          ZERO_SOURCE: ${{ inputs.source }}
         run: |
           mkdir -p out/zeros
           python $D/kappa_collect.py shards out/zeros
@@ -126,6 +137,7 @@ jobs:
 
   gaps:
     needs: [data, analysis]
+    if: ${{ always() && needs.data.result == 'success' && needs.analysis.result == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 240
     steps:
@@ -151,7 +163,7 @@ jobs:
 
   publish:
     needs: [direct, data, kappa, analysis, gaps]
-    if: always()
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

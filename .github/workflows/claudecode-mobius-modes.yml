@@ -1,0 +1,177 @@
+name: claudecode-mobius-modes
+# Claude Code seat: Moebius energy, direct (sieve) side and zero side.  NUMERICAL evidence only; nothing here proves RH.
+# Direct side: segmented sieve to N, Q_c(log N), 20 random comparison functions, F(y) through the mode form.
+# Zero side: Platt's tables (Drive folder, GDRIVE_SA_JSON if set, else gdown), index.db, inventory, kappa, B(u)
+# reconstruction, smallest normalized gaps.  Never commits .dat files.
+on:
+  workflow_dispatch:
+    inputs:
+      nmax:   { description: "sieve limit N", default: "100000000" }
+      nzeros: { description: "zeros for kappa (multiple of 50)", default: "100000" }
+      ymax:   { description: "Y for F(y)", default: "10000000" }
+permissions:
+  contents: write
+env:
+  FOLDER_ID: 1sjOgAqKLlf6c2cPcDvi6kql4KzDMPBk2
+  D: discovery/mobius_modes
+jobs:
+  direct:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy mpmath
+      - name: Direct Moebius side (Task 2)
+        run: |
+          mkdir -p out/mobius_modes
+          gcc -O2 -o mu_scan $D/mu_scan.c -lm
+          gcc -O2 -o modes_F $D/modes_F.c -lm
+          C=$(python -c "from mpmath import *; mp.dps=30; print(1/zeta(mpf(1)/2))")
+          echo "c = $C"
+          # small-N regression against the independent python implementation inside direct_post is by construction; here time the real run
+          time ./mu_scan ${{ inputs.nmax }} "$C" mu_scan.csv
+          python $D/direct_post.py mu_scan.csv out/mobius_modes
+          time ./modes_F ${{ inputs.ymax }} modes_F.csv
+          python $D/modes_post.py modes_F.csv out/mobius_modes 100 1000 10000 100000
+      - uses: actions/upload-artifact@v4
+        with: { name: direct, path: out/mobius_modes }
+
+  data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy mpmath gdown google-api-python-client google-auth
+      - uses: actions/cache@v4
+        with:
+          path: zdata
+          key: platt-zeros-v1
+      - name: Fetch Platt tables, point the reader at them, build index.db
+        env:
+          GDRIVE_SA_JSON: ${{ secrets.GDRIVE_SA_JSON }}
+        run: |
+          mkdir -p zdata/zeta/data
+          python $D/fetch_zeros.py zdata/zeta "$FOLDER_ID" zdata/platt_zeros.py
+          # platt_zeros.py is used unmodified except for pointing zeta_folder at the download directory
+          sed -i "s|^zeta_folder = .*|zeta_folder = Path('$GITHUB_WORKSPACE/zdata/zeta')|" zdata/platt_zeros.py
+          grep -n "^zeta_folder" zdata/platt_zeros.py
+          PYTHONPATH=$D python $D/build_index.py zdata/zeta
+          du -sh zdata
+      - name: Inventory (step 0)
+        continue-on-error: true
+        run: |
+          mkdir -p out/zeros
+          PYTHONPATH=$D python $D/inventory.py zdata/zeta out/zeros
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: inventory, path: out/zeros }
+
+  kappa:
+    needs: data
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy mpmath
+      - uses: actions/cache/restore@v4
+        with:
+          path: zdata
+          key: platt-zeros-v1
+          fail-on-cache-miss: true
+      - name: kappa shard
+        run: |
+          SIZE=$(( ${{ inputs.nzeros }} / 50 ))
+          START=$(( ${{ matrix.shard }} * SIZE + 1 ))
+          mkdir -p out/kappa
+          PYTHONPATH=$D python $D/kappa_shard.py zdata $START $SIZE out/kappa/kappa_${{ matrix.shard }}.csv
+      - uses: actions/upload-artifact@v4
+        with: { name: "kappa-${{ matrix.shard }}", path: out/kappa }
+
+  analysis:
+    needs: [direct, kappa]
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy mpmath
+      - uses: actions/download-artifact@v4
+        with: { pattern: "kappa-*", merge-multiple: true, path: shards }
+      - uses: actions/download-artifact@v4
+        with: { name: direct, path: direct }
+      - name: kappa, comparison, reconstruction
+        run: |
+          mkdir -p out/zeros
+          python $D/kappa_collect.py shards out/zeros
+          python $D/compare.py direct/direct_summary.json out/zeros/kappa_summary.json out/zeros/compare_kappa_vs_Q.md
+          gcc -O2 -o mu_S_grid $D/mu_S_grid.c -lm
+          python $D/reconstruct.py --grid kgrid.txt
+          ./mu_S_grid kgrid.txt s_grid.csv
+          python $D/reconstruct.py out/zeros/kappa_all.csv s_grid.csv out/zeros
+          gzip -f out/zeros/kappa_all.csv
+          [ $(stat -c %s out/zeros/kappa_all.csv.gz) -lt 60000000 ] || rm out/zeros/kappa_all.csv.gz
+      - uses: actions/upload-artifact@v4
+        with: { name: analysis, path: out/zeros }
+
+  gaps:
+    needs: [data, analysis]
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install numpy mpmath
+      - uses: actions/cache/restore@v4
+        with:
+          path: zdata
+          key: platt-zeros-v1
+          fail-on-cache-miss: true
+      - uses: actions/download-artifact@v4
+        with: { name: analysis, path: analysis }
+      - name: smallest normalized gaps over all zeros
+        run: |
+          mkdir -p out/zeros
+          PYTHONPATH=$D python $D/gaps.py zdata/zeta out/zeros/smallest_gaps_1000.csv
+          PYTHONPATH=$D python $D/gaps_zeta.py zdata out/zeros/smallest_gaps_1000.csv analysis/kappa_summary.json out/zeros/smallest_gaps_100_zeta_prime.csv 100 | tee out/zeros/gaps_log.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: gaps, path: out/zeros }
+
+  publish:
+    needs: [direct, data, kappa, analysis, gaps]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with: { name: direct, path: results/mobius_modes }
+        continue-on-error: true
+      - uses: actions/download-artifact@v4
+        with: { name: inventory, path: results/mobius_modes/zeros }
+        continue-on-error: true
+      - uses: actions/download-artifact@v4
+        with: { name: analysis, path: results/mobius_modes/zeros }
+        continue-on-error: true
+      - uses: actions/download-artifact@v4
+        with: { name: gaps, path: results/mobius_modes/zeros }
+        continue-on-error: true
+      - name: commit results (no .dat files, ever)
+        run: |
+          find results/mobius_modes -name '*.dat' -delete
+          git config user.name "claude-code-seat"
+          git config user.email "claude-code-seat@users.noreply.github.com"
+          git add results/mobius_modes
+          git commit -m "claudecode-mobius-modes results, run ${{ github.run_id }} (NUMERICAL)" || echo "nothing to commit"
+          for i in 1 2 3 4 5; do git pull --rebase && git push && break; sleep 8; done

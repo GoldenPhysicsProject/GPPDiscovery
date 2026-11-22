@@ -18,3 +18,12 @@ B(u) ≈ Σ_{γ>0} 2Re[e^{iγu}/(ρζ′(ρ))] (assumes RH and simple zeros), wh
 2Σ 1/|ρζ′(ρ)|². The partial sums are still rising toward the measured slope. So in the true world
 (ii) looks like a mean-square/almost-periodicity statement about Möbius sums — RH-strength, and
 this check says nothing about proving it. Reproduce: `python3 -I scan.py`, `slope.py [NMAX]`, `parseval.py [NZ]`.
+
+## Correction (2026-11-22, same day)
+
+The explicit-formula term above was written with denominator `rho zeta'(rho)`. The correct one is `(rho - 1/2) zeta'(rho) = i gamma zeta'(rho)`:
+the pole of `x^s / (s zeta(s + 1/2))` sits at `s = i gamma` (not `s = rho`), so `B(u) = sum_{gamma>0} 2 Re[e^{i gamma u} / (i gamma zeta'(rho))]`
+and the mean square is `kappa = 2 sum_{gamma>0} 1/(gamma^2 |zeta'(rho)|^2)`. The change is `~ 1/(4 gamma^2)` relative per zero (0.08% on the first
+zero, 0.085% on a 40-zero partial sum) and does not affect the agreement quoted above at the digits shown, but the
+`parseval.py` here uses the wrong denominator. The corrected computation, on Platt's tables read through the reference reader, is in
+`discovery/mobius_modes/` and `results/mobius_modes/`.

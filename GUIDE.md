@@ -19,7 +19,7 @@ revised when the layout changes.
 - Root scripts: `spectrum.py`, `spacing.py`, `fit.py`, `efit.py`, `point.py`, `resolution.py`, and the Cayley–Fock bridge scripts `cayley_fock_bridge.py`, `cayley_fock_multichannel.py`.
 - `discovery/`: the research threads, including `arithmetic_holography/`.
 - `claude/`: the seat's working files.
-- `lean_sweep/`: Lean-side sweep results, the pinned Mathlib project, and `.github/workflows/claude-leanfast.yml`, a fast lane that compiles only the Lean files that changed (or are named at dispatch) against cached Mathlib and records nothing in the repo.
+- `lean_sweep/`: Lean-side sweep results.
 - `results/`: saved outputs.
 
 ## Conventions

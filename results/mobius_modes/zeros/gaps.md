@@ -17,4 +17,4 @@ The 1000 smallest range from 0.001235 to 0.025327 (full list: `smallest_gaps_100
 | 9 | 33,349,976 | 15289808.6664 | 0.005496 | 0.1299 | 0.1295 | 1.02e-12 |
 | 10 | 61,515,842 | 27074091.1555 | 0.005857 | 0.1092 | 0.1092 | 4.58e-13 |
 
-Over the 100 smallest-gap pairs: |zeta'(rho)| ranges 0.0143 to 0.477 (small gaps go with small |zeta'|, as expected). Their total contribution to kappa = 2 sum 1/(gamma^2 |zeta'|^2) is 4.97e-09, i.e. a share of **1.7e-07** of kappa. **Provisional:** the share column uses kappa = 0.0290 (the sieve slope); it will be recomputed against the zero-sum value of kappa when that run finishes. The share is negligible because 1/gamma^2 at gamma ~ 1e7 is about 1e-14 even when |zeta'| is 0.01.
+Over the 100 smallest-gap pairs: |zeta'(rho)| ranges 0.0143 to 0.477 (small gaps go with small |zeta'|, as expected). Their total contribution to kappa = 2 sum 1/(gamma^2 |zeta'|^2) is 4.97e-09, a share of **1.71e-07** of kappa = 0.029057 (the zero-sum value from `kappa.md`; the share column in the CSV uses it). It is negligible because 1/gamma^2 at gamma ~ 1e7 is about 1e-14 even when |zeta'| is 0.01.

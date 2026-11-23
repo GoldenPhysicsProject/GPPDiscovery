@@ -11,6 +11,7 @@ on:
       ymax:   { description: "Y for F(y)", default: "10000000" }
       source: { description: "zero source for kappa: platt (tables from Drive) or mpmath (mpmath.zetazero fallback)", default: "platt" }
       do_direct: { description: "run the direct Moebius side", default: "true" }
+      kappa_run_id: { description: "reuse the kappa shard artifacts of this earlier run id instead of recomputing (skips the shards)", default: "" }
 permissions:
   contents: write
 env:
@@ -76,7 +77,7 @@ jobs:
 
   kappa:
     needs: data
-    if: ${{ always() && (inputs.source == 'mpmath' || needs.data.result == 'success') }}
+    if: ${{ always() && inputs.kappa_run_id == '' && (inputs.source == 'mpmath' || needs.data.result == 'success') }}
     runs-on: ubuntu-latest
     timeout-minutes: 300
     strategy:
@@ -106,6 +107,7 @@ jobs:
 
   analysis:
     needs: [kappa]
+    if: ${{ always() && (needs.kappa.result == 'success' || inputs.kappa_run_id != '') }}
     runs-on: ubuntu-latest
     timeout-minutes: 180
     steps:
@@ -114,7 +116,16 @@ jobs:
         with: { python-version: "3.12" }
       - run: pip install numpy mpmath
       - uses: actions/download-artifact@v4
+        if: ${{ inputs.kappa_run_id == '' }}
         with: { pattern: "kappa-*", merge-multiple: true, path: shards }
+      - uses: actions/download-artifact@v4
+        if: ${{ inputs.kappa_run_id != '' }}
+        with:
+          pattern: "kappa-*"
+          merge-multiple: true
+          path: shards
+          run-id: ${{ inputs.kappa_run_id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: direct summary from the committed results
         run: |
           mkdir -p direct

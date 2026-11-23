@@ -10,8 +10,8 @@ from pathlib import Path
 zeta = Path(sys.argv[1]); fid = sys.argv[2]; platt_out = Path(sys.argv[3])
 data = zeta / 'data'
 data.mkdir(parents=True, exist_ok=True)
-need = lambda: not (list(data.glob('zeros_*.dat')) and platt_out.exists())
-if need():
+expect = int(os.environ.get('EXPECT_DAT', '0'))   # number of zeros_*.dat files the folder is known to hold (strict check)
+if True:
     sa = os.environ.get('GDRIVE_SA_JSON')
     if sa:
         from google.oauth2 import service_account
@@ -26,6 +26,11 @@ if need():
                                  pageToken=tok, pageSize=200).execute()
             files += r['files']; tok = r.get('nextPageToken')
             if not tok: break
+        dats = [f for f in files if f['name'].endswith('.dat')]
+        print('service account lists', len(dats), 'zeros_*.dat files:', sorted(f['name'] for f in dats), flush=True)
+        if expect and len(dats) != expect:
+            sys.exit(f'INCOMPLETE LISTING: expected {expect} .dat files, the service account sees {len(dats)} '
+                     '(Drive may still be propagating the folder permission to its children; re-run in a few minutes)')
         for f in files:
             if not (f['name'].endswith('.dat') or f['name'] == 'platt_zeros.py'):
                 continue
@@ -50,4 +55,7 @@ if need():
                 elif p.suffix == '.dat':
                     shutil.move(str(p), data / p.name)
         shutil.rmtree(tmp, ignore_errors=True)
-print('data files:', len(list(data.glob('zeros_*.dat'))), 'platt_zeros.py:', platt_out.exists())
+n_local = len(list(data.glob('zeros_*.dat')))
+print('data files:', n_local, 'platt_zeros.py:', platt_out.exists())
+if expect and n_local != expect:
+    sys.exit(f'INCOMPLETE DOWNLOAD: {n_local} of {expect} .dat files present')
